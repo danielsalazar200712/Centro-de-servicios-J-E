@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-50" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Centro de Servicios J&amp;E - Registro de Venta</title>
+<!-- Tailwind CSS v3 CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eefbf4',
+              100: '#d7f4e4',
+              600: '#1b5e3f',
+              700: '#154c33',
+              800: '#133e2b', // Institutional green specified
+              900: '#0f3223',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Layout Styles -->
+<style data-purpose="custom-layout">
+    /* Subtle custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+<!-- END: Custom Layout Styles -->
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head>
+<body class="h-full flex flex-col font-sans text-slate-800 antialiased selection:bg-brand-800 selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm" data-purpose="site-header">
+<div class="px-6 py-3.5 flex items-center justify-between">
+<!-- Logo and Brand Name -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-brand-800 text-white flex items-center justify-center font-bold text-lg tracking-wider shadow-inner">
+          J&amp;E
+        </div>
+<div>
+<h1 class="text-lg font-bold text-slate-900 leading-tight">Centro de Servicios J&amp;E</h1>
+<p class="text-xs text-slate-500 font-medium">Sistema de Gestión de Repuestos y Taller</p>
+</div>
+</div>
+<!-- User Profile Header -->
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs text-slate-400 font-medium leading-none mb-1">Sesión activa</p>
+<p class="text-sm font-semibold text-slate-800 leading-none">Usuario</p>
+</div>
+<div aria-label="Avatar de usuario" class="w-10 h-10 rounded-full border-2 border-brand-800 bg-brand-50 flex items-center justify-center text-brand-800 font-bold text-sm shadow-sm">
+          U
+        </div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- Container for Sidebar and Main Content -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 p-4" data-purpose="navigation-sidebar">
+<nav aria-label="Navegación principal" class="space-y-2">
+<!-- Navigation Item: Inicio -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#inicio">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Inicio</span>
+</a>
+<!-- Navigation Item: Inventario -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#inventario">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Inventario</span>
+</a>
+<!-- Navigation Item: Cotizaciones -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#cotizaciones">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Cotizaciones</span>
+</a>
+<!-- Navigation Item: Pedidos (Active Item with Institutional Green) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#pedidos">
+<svg class="w-5 h-5 text-brand-100" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Pedidos</span>
+</a>
+<!-- Navigation Item: Reportes -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#reportes">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Reportes</span>
+</a>
+</nav>
+<!-- Sidebar Status Card -->
+<div class="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
+<p class="font-semibold text-slate-800 mb-0.5">Sucursal Principal</p>
+<p class="text-slate-500">Terminal Venta #04</p>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 overflow-y-auto p-6 lg:p-8 bg-slate-50" data-purpose="form-main-container"><div class="flex flex-col w-full">
+<!-- Toolbar / Acciones operativas superiores -->
+<div class="w-full max-w-[920px] mx-auto mb-6 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 px-3.5 py-2 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md transition-colors shadow-sm" href="#pedidos">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Volver a Pedidos</span>
+</a>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#DCFCE7] text-[#15803D] font-code-tech text-[11px] tracking-wide uppercase font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Validada DIAN · Resolución #187640</span>
+</span>
+</div>
+<div class="flex items-center gap-2.5">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md shadow-sm transition-colors" onclick="navigator.clipboard.writeText('CUFE-7f89b2-je-2024-col'); alert('CUFE copiado al portapapeles');" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copiar CUFE</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-sm transition-colors" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Imprimir Factura</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container font-label-md text-label-md shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Descargar PDF</span>
+</button>
+</div>
+</div>
+<!-- Document Sheet Container (Canvas Beige / Arena suave inspirado en la referencia) -->
+<div class="w-full max-w-[920px] mx-auto shadow-md rounded-sm overflow-hidden bg-[#f4efe6] text-neutral-900 print:shadow-none print:max-w-none print:w-full">
+<!-- Top Decorative Margin Header Frame -->
+<div class="h-8 bg-[#ebe3d5] w-full border-b border-[#e2d9ca]/70 flex items-center justify-between px-10 text-[10px] tracking-widest text-neutral-500 font-mono uppercase">
+<span>Sistema J&amp;E · Emisión Electrónica</span>
+<span>Página 01 / 01</span>
+</div>
+<!-- Interior Hoja de Factura -->
+<div class="bg-[#ffffff] mx-4 sm:mx-8 my-6 p-8 sm:p-12 shadow-sm rounded-none">
+<!-- ENCABEZADO -->
+<div class="flex items-start justify-between mb-12">
+<div>
+<h1 class="text-4xl sm:text-5xl font-light tracking-[0.08em] text-black font-sans leading-none uppercase">
+            Factura
+          </h1>
+<div class="mt-4 inline-block border border-black px-4 py-1.5 bg-white">
+<span class="text-sm sm:text-base font-semibold tracking-wider text-black font-mono">
+              Nº: FE-00482
+            </span>
+</div>
+</div>
+<!-- Logotipo Monograma Artístico J&E fluido estilo caligráfico -->
+<div class="flex flex-col items-end">
+<svg class="w-20 h-20 text-black stroke-current fill-none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewbox="0 0 100 100">
+<!-- Caligraphic J & E mark inspired by the reference 'A' -->
+<path d="M42 22 C36 28, 30 45, 30 62 C30 74, 38 78, 44 72 C48 68, 50 58, 48 50 C45 38, 32 30, 24 35"></path>
+<path d="M28 48 C42 46, 68 38, 76 34" stroke-width="1.8"></path>
+<path d="M60 26 C64 42, 67 60, 72 74 C75 82, 84 80, 86 70 C88 58, 70 48, 56 54" stroke-width="2"></path>
+<path d="M52 64 C64 62, 78 60, 84 59" stroke-width="1.5"></path>
+</svg>
+<span class="text-[9px] tracking-[0.25em] text-neutral-600 uppercase font-sans mt-0.5">J&amp;E Atelier &amp; Taller</span>
+</div>
+</div>
+<!-- DATOS CLIENTE & DATOS EMPRESA (2 Columnas con línea divisoria fina) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative pb-10 mb-8 border-b border-neutral-200">
+<!-- Línea divisoria central sutil solo en desktop -->
+<div class="hidden md:block absolute left-1/2 top-0 bottom-10 w-[1px] bg-neutral-300"></div>
+<!-- Datos del Cliente -->
+<div class="pr-0 md:pr-8">
+<h2 class="text-xs font-bold tracking-[0.12em] text-black uppercase mb-3 font-sans">
+            Datos del Cliente
+          </h2>
+<div class="space-y-1.5 text-xs text-neutral-800 leading-relaxed font-sans">
+<p class="font-medium text-neutral-900 text-sm">Hacienda El Porvenir S.A.S.</p>
+<p><span class="text-neutral-500">NIT/CC:</span> 900.542.118-4</p>
+<p><span class="text-neutral-500">Contacto:</span> Carlos Eduardo Restrepo</p>
+<p><span class="text-neutral-500">Email:</span> compras@elporvenir-agro.co</p>
+<p><span class="text-neutral-500">Tel:</span> +57 (312) 489-2231</p>
+<p><span class="text-neutral-500">Dir:</span> Km 14 Vía Palmira, Valle del Cauca</p>
+</div>
+</div>
+<!-- Datos de la Empresa -->
+<div class="pl-0 md:pl-8 text-left md:text-right">
+<h2 class="text-xs font-bold tracking-[0.12em] text-black uppercase mb-3 font-sans">
+            Datos de la Empresa
+          </h2>
+<div class="space-y-1.5 text-xs text-neutral-800 leading-relaxed font-sans">
+<p class="font-medium text-neutral-900 text-sm">Centro de Servicios J&amp;E S.A.S.</p>
+<p><span class="text-neutral-500">NIT:</span> 901.832.740-1 · Régimen Común</p>
+<p><span class="text-neutral-500">Email:</span> facturacion@centrodeserviciosje.com</p>
+<p><span class="text-neutral-500">Tel:</span> +57 (602) 884-1290 / 315-700-1122</p>
+<p><span class="text-neutral-500">Dir:</span> Carrera 8 # 22-45, Zona Industrial</p>
+<p><span class="text-neutral-500">Ciudad:</span> Santiago de Cali, Colombia</p>
+</div>
+</div>
+</div>
+<!-- TABLA DE ITEMS MINIMALISTA -->
+<div class="mb-8">
+<!-- Cabecera de la tabla con caja negra fina -->
+<div class="border border-black px-4 py-2.5 grid grid-cols-12 text-xs font-semibold text-black tracking-wide font-sans uppercase">
+<div class="col-span-6 sm:col-span-7">Detalle</div>
+<div class="col-span-2 text-center">Cantidad</div>
+<div class="col-span-2 text-right">Precio</div>
+<div class="col-span-2 sm:col-span-1 text-right">Total</div>
+</div>
+<!-- Filas de Conceptos -->
+<div class="divide-y divide-neutral-100 text-xs text-neutral-800 font-sans">
+<div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-neutral-50/60 transition-colors">
+<div class="col-span-6 sm:col-span-7 pr-2">
+<p class="font-medium text-neutral-900">Mantenimiento preventivo general motobomba</p>
+<p class="text-[11px] text-neutral-500 font-mono">Honda GX160 · Limpieza de carburador, calibración de válvulas</p>
+</div>
+<div class="col-span-2 text-center font-mono">01</div>
+<div class="col-span-2 text-right font-mono">$ 85.000</div>
+<div class="col-span-2 sm:col-span-1 text-right font-mono font-medium">$ 85.000</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-neutral-50/60 transition-colors">
+<div class="col-span-6 sm:col-span-7 pr-2">
+<p class="font-medium text-neutral-900">Bujía de encendido de alto rendimiento</p>
+<p class="text-[11px] text-neutral-500 font-mono">NGK BPR6ES OEM Ref. #4922</p>
+</div>
+<div class="col-span-2 text-center font-mono">02</div>
+<div class="col-span-2 text-right font-mono">$ 18.000</div>
+<div class="col-span-2 sm:col-span-1 text-right font-mono font-medium">$ 36.000</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-neutral-50/60 transition-colors">
+<div class="col-span-6 sm:col-span-7 pr-2">
+<p class="font-medium text-neutral-900">Aceite motor sintético 4T SAE 10W-30</p>
+<p class="text-[11px] text-neutral-500 font-mono">Cuarto de galón Motul Power Agri</p>
+</div>
+<div class="col-span-2 text-center font-mono">02</div>
+<div class="col-span-2 text-right font-mono">$ 34.500</div>
+<div class="col-span-2 sm:col-span-1 text-right font-mono font-medium">$ 69.000</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-neutral-50/60 transition-colors">
+<div class="col-span-6 sm:col-span-7 pr-2">
+<p class="font-medium text-neutral-900">Filtro de aire dual foam element</p>
+<p class="text-[11px] text-neutral-500 font-mono">Original Honda 17210-ZE1-822</p>
+</div>
+<div class="col-span-2 text-center font-mono">01</div>
+<div class="col-span-2 text-right font-mono">$ 28.000</div>
+<div class="col-span-2 sm:col-span-1 text-right font-mono font-medium">$ 28.000</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-neutral-50/60 transition-colors">
+<div class="col-span-6 sm:col-span-7 pr-2">
+<p class="font-medium text-neutral-900">Correa de distribución y sello de bomba 2"</p>
+<p class="text-[11px] text-neutral-500 font-mono">Repuesto reforzado en caucho nitrilo</p>
+</div>
+<div class="col-span-2 text-center font-mono">01</div>
+<div class="col-span-2 text-right font-mono">$ 42.000</div>
+<div class="col-span-2 sm:col-span-1 text-right font-mono font-medium">$ 42.000</div>
+</div>
+<div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-neutral-50/60 transition-colors">
+<div class="col-span-6 sm:col-span-7 pr-2">
+<p class="font-medium text-neutral-900">Mano de obra técnica especializada de prueba</p>
+<p class="text-[11px] text-neutral-500 font-mono">Test hidrostático y banqueo 45 min</p>
+</div>
+<div class="col-span-2 text-center font-mono">01</div>
+<div class="col-span-2 text-right font-mono">$ 40.000</div>
+<div class="col-span-2 sm:col-span-1 text-right font-mono font-medium">$ 40.000</div>
+</div>
+</div>
+<!-- Línea horizontal de cierre de conceptos -->
+<div class="border-b border-black mt-2"></div>
+</div>
+<!-- SECCIÓN DE LIQUIDACIÓN / TOTALES -->
+<div class="flex flex-col items-end mb-12">
+<div class="w-full sm:w-80 space-y-2 text-xs font-sans">
+<div class="flex justify-between items-center py-1 px-3">
+<span class="text-neutral-600 uppercase font-medium tracking-wider">Subtotal:</span>
+<span class="font-mono text-neutral-900 font-medium">$ 300.000</span>
+</div>
+<div class="flex justify-between items-center py-1 px-3">
+<span class="text-neutral-900 font-semibold uppercase tracking-wider">IVA</span>
+<span class="font-mono text-neutral-600 text-xs">19 %</span>
+<span class="font-mono text-neutral-900 font-medium">$ 57.000</span>
+</div>
+<!-- Cuadro de Total con Borde Negro Prominente idéntico a la referencia -->
+<div class="border border-black px-4 py-2.5 flex justify-between items-center bg-white mt-2">
+<span class="font-bold text-sm tracking-[0.1em] text-black uppercase font-sans">TOTAL</span>
+<span class="font-bold text-base tracking-wide text-black font-mono">$ 357.000</span>
+</div>
+</div>
+</div>
+<!-- INFORMACIÓN DE PAGO (Recuadro con borde negro exacto a la referencia) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-end">
+<div>
+<div class="border border-black p-5 max-w-sm bg-white">
+<h3 class="text-xs font-bold tracking-[0.12em] text-black uppercase mb-3 font-sans">
+              Información de Pago
+            </h3>
+<div class="space-y-1.5 text-xs text-neutral-800 font-sans leading-relaxed">
+<p class="font-medium text-neutral-900">Transferencia bancaria / Corriente</p>
+<p><span class="text-neutral-500">Banco:</span> Bancolombia</p>
+<p><span class="text-neutral-500">Titular:</span> Centro de Servicios J&amp;E S.A.S.</p>
+<p><span class="text-neutral-500">Cuenta Nº:</span> <span class="font-mono font-semibold text-neutral-900">084-339210-94</span></p>
+<p><span class="text-neutral-500">Convenio Recaudo:</span> 48102</p>
+</div>
+</div>
+</div>
+<!-- Sello de Certificación Fiscal y Firma Técnica -->
+<div class="text-left sm:text-right space-y-2">
+<div class="inline-block border-b border-black w-48 mb-1"></div>
+<p class="text-xs font-medium text-black uppercase tracking-wider font-sans">Firma Autorizada y Sello</p>
+<p class="text-[10px] text-neutral-500 font-mono tracking-tight">CUFE: 8b73a-449e2-901832740-fe00482</p>
+<p class="text-[10px] text-neutral-400">Esta factura electrónica constituye título valor (Art. 772 C.Co.)</p>
+</div>
+</div>
+</div>
+<!-- PIE DE PÁGINA CENTRADO EN MAYÚSCULAS LIMPIAS (Marco Inferior Beige) -->
+<div class="py-6 bg-[#ebe3d5] text-center border-t border-[#e2d9ca]/70">
+<p class="text-xs font-medium tracking-[0.2em] text-neutral-800 uppercase font-sans">
+        www.centrodeserviciosje.com
+      </p>
+<p class="text-[10px] tracking-wider text-neutral-500 uppercase mt-1">
+        Cali, Colombia · Línea de Atención y Garantías: 01 8000 912 345
+      </p>
+</div>
+</div>
+</div></main>
+<!-- END: MainContent -->
+</div>
+<!-- BEGIN: PageFooter -->
+<footer class="bg-white border-t border-slate-200 py-3.5 px-6 shrink-0 text-center text-xs text-slate-500 font-medium" data-purpose="site-footer">
+    Pie de página - J&amp;E
+  </footer>
+<!-- END: PageFooter -->
+</body></html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-50" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Centro de Servicios J&amp;E - Nueva Cotización</title>
+<!-- Tailwind CSS CDN with forms plugin -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#133e2b',
+              50: '#f1f8f4',
+              100: '#deefe6',
+              600: '#1a523a',
+              700: '#133e2b',
+              800: '#0e2d20',
+              900: '#091e15',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="typography">
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col text-slate-800 antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30 flex-none" data-purpose="application-header">
+<div class="px-6 py-3.5 flex items-center justify-between">
+<!-- Brand & Organization Name -->
+<div class="flex items-center gap-3">
+<div class="h-9 w-9 rounded-lg bg-brand text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-sm">
+          J&amp;E
+        </div>
+<div class="flex flex-col">
+<span class="text-base font-bold text-slate-900 tracking-tight leading-none">Centro de Servicios J&amp;E</span>
+<span class="text-[11px] font-medium text-slate-400 leading-tight mt-0.5">Gestión de Taller y Reparaciones</span>
+</div>
+</div>
+<!-- User Profile Header Section -->
+<div class="flex items-center gap-3" data-purpose="user-profile-summary">
+<div class="text-right hidden sm:block">
+<span class="text-sm font-semibold text-slate-700 block leading-tight">Usuario</span>
+<span class="text-xs text-slate-400">Administrador</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-slate-100 border-2 border-brand-700/20 text-brand-700 flex items-center justify-center font-semibold text-sm shadow-sm ring-2 ring-white">
+          U
+        </div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContentWrapper -->
+<div class="flex-1 flex overflow-hidden">
+<!-- BEGIN: SidebarNavigation -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 hidden md:flex" data-purpose="primary-sidebar">
+<nav aria-label="Navegación principal" class="p-4 space-y-1.5">
+<!-- Nav Item: Inicio -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Inicio
+        </a>
+<!-- Nav Item: Inventario -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Inventario
+        </a>
+<!-- Nav Item: Cotizaciones (Activo) -->
+<a aria-current="page" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-brand text-white shadow-sm shadow-brand/20 transition-colors" href="#">
+<svg class="w-5 h-5 text-brand-100" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Cotizaciones
+        </a>
+<!-- Nav Item: Pedidos -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Pedidos
+        </a>
+<!-- Nav Item: Reportes -->
+<a class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Reportes
+        </a>
+</nav>
+<!-- Sidebar Footer Badge -->
+<div class="p-4 border-t border-slate-100">
+<div class="px-3 py-2 bg-slate-50 rounded-md border border-slate-200/60 text-center">
+<span class="text-xs text-slate-500 font-medium">Taller Mecánico v1.0</span>
+</div>
+</div>
+</aside>
+<!-- END: SidebarNavigation -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 overflow-y-auto px-4 sm:px-8 py-6 bg-slate-50" data-purpose="quotation-form-container">
+<div class="max-w-5xl mx-auto space-y-6">
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Ruta de navegación" class="flex items-center text-xs font-medium text-slate-500 gap-1.5">
+<a class="hover:text-brand-700 transition-colors" href="#">Inicio</a>
+<span class="text-slate-400">&gt;</span>
+<span class="text-brand-700 font-semibold">Cotizaciones</span>
+</nav>
+<!-- Page Header -->
+<div class="flex items-center justify-between border-b border-slate-200 pb-4">
+<div>
+<h1 class="text-2xl font-bold tracking-tight text-slate-900">Nueva cotización</h1>
+<p class="text-xs text-slate-500 mt-1">Formulario y tabla de conceptos (repuestos y mano de obra)</p>
+</div>
+</div>
+<!-- Quotation Form Card -->
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+<form class="p-6 space-y-6" onsubmit="event.preventDefault();">
+<!-- Row 1: Primary Inputs (3 Columns) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Input: Cliente -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" for="cliente">
+                  Cliente <span class="text-red-500">*</span>
+</label>
+<input class="w-full text-sm rounded-lg border-slate-300 focus:border-brand focus:ring focus:ring-brand/20 transition-shadow placeholder:text-slate-400" id="cliente" name="cliente" placeholder="Nombre del cliente" required="" type="text"/>
+</div>
+<!-- Input: Maquinaria / equipo -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" for="maquinaria">
+                  Maquinaria / equipo <span class="text-red-500">*</span>
+</label>
+<input class="w-full text-sm rounded-lg border-slate-300 focus:border-brand focus:ring focus:ring-brand/20 transition-shadow placeholder:text-slate-400" id="maquinaria" name="maquinaria" placeholder="Ej. Tractor" required="" type="text"/>
+</div>
+<!-- Input: Fecha -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" for="fecha">
+                  Fecha <span class="text-red-500">*</span>
+</label>
+<input class="w-full text-sm rounded-lg border-slate-300 focus:border-brand focus:ring focus:ring-brand/20 transition-shadow text-slate-700" id="fecha" name="fecha" required="" type="date" value="2026-10-19"/>
+</div>
+</div>
+<!-- Row 2: Service Description -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5" for="descripcion">
+                Descripción del servicio
+              </label>
+<textarea class="w-full text-sm rounded-lg border-slate-300 focus:border-brand focus:ring focus:ring-brand/20 transition-shadow placeholder:text-slate-400 resize-none" id="descripcion" name="descripcion" placeholder="Describa la reparación..." rows="2"></textarea>
+</div>
+<!-- BEGIN: ConceptsTable -->
+<div class="mt-8">
+<div class="overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left border-collapse text-sm">
+<thead>
+<tr class="bg-slate-100/80 border-b border-slate-200 text-xs font-bold text-slate-700 uppercase tracking-wider">
+<th class="py-3 px-4" scope="col">Concepto</th>
+<th class="py-3 px-4 text-center w-28" scope="col">Cant.</th>
+<th class="py-3 px-4 text-right w-36" scope="col">Valor unit.</th>
+<th class="py-3 px-4 text-right w-36" scope="col">Subtotal</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 text-slate-700 font-normal">
+<!-- Concept 1: Filtro -->
+<tr class="hover:bg-slate-50/75 transition-colors">
+<td class="py-3 px-4 font-medium text-slate-800">Repuesto: filtro</td>
+<td class="py-3 px-4 text-center">2</td>
+<td class="py-3 px-4 text-right">$18.000</td>
+<td class="py-3 px-4 text-right font-medium text-slate-900">$36.000</td>
+</tr>
+<!-- Concept 2: Correa -->
+<tr class="hover:bg-slate-50/75 transition-colors">
+<td class="py-3 px-4 font-medium text-slate-800">Repuesto: correa</td>
+<td class="py-3 px-4 text-center">1</td>
+<td class="py-3 px-4 text-right">$42.000</td>
+<td class="py-3 px-4 text-right font-medium text-slate-900">$42.000</td>
+</tr>
+<!-- Concept 3: Mano de obra -->
+<tr class="hover:bg-slate-50/75 transition-colors">
+<td class="py-3 px-4 font-medium text-slate-800">Mano de obra</td>
+<td class="py-3 px-4 text-center">3 h</td>
+<td class="py-3 px-4 text-right">$30.000</td>
+<td class="py-3 px-4 text-right font-medium text-slate-900">$90.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- END: ConceptsTable -->
+<!-- BEGIN: ActionsAndTotalsSection -->
+<div class="pt-2 flex flex-col md:flex-row items-stretch md:items-end justify-between gap-6">
+<!-- Left Action: Add Concept -->
+<div class="flex items-center">
+<button class="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-sm font-semibold text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 hover:text-brand focus:outline-none focus:ring-2 focus:ring-brand/30 transition-all shadow-sm" type="button">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+                  Agregar concepto
+                </button>
+</div>
+<!-- Right Actions: Totals Card and Save Button -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-6">
+<!-- Summary Totals Block -->
+<div class="bg-slate-50 border border-slate-200/90 rounded-lg px-6 py-3 min-w-[240px] text-sm">
+<div class="flex justify-between items-center py-1 text-slate-600">
+<span class="text-xs uppercase tracking-wider font-semibold">Subtotal:</span>
+<span class="font-medium">$168.000</span>
+</div>
+<div class="flex justify-between items-center py-1.5 border-t border-slate-200/80 mt-1">
+<span class="text-sm uppercase tracking-wider font-bold text-slate-900">TOTAL:</span>
+<span class="text-base font-extrabold text-brand-700">$168.000</span>
+</div>
+</div>
+<!-- Primary Action: Save Button -->
+<div class="flex items-stretch sm:items-end">
+<button class="w-full sm:w-auto px-7 py-2.5 bg-brand hover:bg-brand-600 active:bg-brand-800 text-white font-semibold text-sm rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand/40 focus:ring-offset-1 transition-colors flex items-center justify-center gap-2" type="submit">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+                    Guardar
+                  </button>
+</div>
+</div>
+</div>
+<!-- END: ActionsAndTotalsSection -->
+</form>
+</div>
+</div>
+</main>
+<!-- END: MainContent -->
+</div>
+<!-- END: MainContentWrapper -->
+<!-- BEGIN: MainFooter -->
+<footer class="bg-white border-t border-slate-200 py-3 px-6 text-center text-xs text-slate-500 flex-none" data-purpose="site-footer">
+    Pie de página - J&amp;E
+  </footer>
+<!-- END: MainFooter -->
+</body></html>

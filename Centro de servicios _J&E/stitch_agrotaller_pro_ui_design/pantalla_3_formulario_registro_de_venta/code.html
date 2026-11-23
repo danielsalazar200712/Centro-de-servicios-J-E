@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-50" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Centro de Servicios J&amp;E - Registro de Venta</title>
+<!-- Tailwind CSS v3 CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eefbf4',
+              100: '#d7f4e4',
+              600: '#1b5e3f',
+              700: '#154c33',
+              800: '#133e2b', // Institutional green specified
+              900: '#0f3223',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Layout Styles -->
+<style data-purpose="custom-layout">
+    /* Subtle custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+<!-- END: Custom Layout Styles -->
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 antialiased selection:bg-brand-800 selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm" data-purpose="site-header">
+<div class="px-6 py-3.5 flex items-center justify-between">
+<!-- Logo and Brand Name -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-brand-800 text-white flex items-center justify-center font-bold text-lg tracking-wider shadow-inner">
+          J&amp;E
+        </div>
+<div>
+<h1 class="text-lg font-bold text-slate-900 leading-tight">Centro de Servicios J&amp;E</h1>
+<p class="text-xs text-slate-500 font-medium">Sistema de Gestión de Repuestos y Taller</p>
+</div>
+</div>
+<!-- User Profile Header -->
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs text-slate-400 font-medium leading-none mb-1">Sesión activa</p>
+<p class="text-sm font-semibold text-slate-800 leading-none">Usuario</p>
+</div>
+<div aria-label="Avatar de usuario" class="w-10 h-10 rounded-full border-2 border-brand-800 bg-brand-50 flex items-center justify-center text-brand-800 font-bold text-sm shadow-sm">
+          U
+        </div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- Container for Sidebar and Main Content -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 p-4" data-purpose="navigation-sidebar">
+<nav aria-label="Navegación principal" class="space-y-2">
+<!-- Navigation Item: Inicio -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#inicio">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Inicio</span>
+</a>
+<!-- Navigation Item: Inventario -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#inventario">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Inventario</span>
+</a>
+<!-- Navigation Item: Cotizaciones -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#cotizaciones">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Cotizaciones</span>
+</a>
+<!-- Navigation Item: Pedidos (Active Item with Institutional Green) -->
+<a aria-current="page" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-brand-800 text-white font-semibold shadow-md transition-colors" href="#pedidos">
+<svg class="w-5 h-5 text-brand-100" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Pedidos</span>
+</a>
+<!-- Navigation Item: Reportes -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm" href="#reportes">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Reportes</span>
+</a>
+</nav>
+<!-- Sidebar Status Card -->
+<div class="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
+<p class="font-semibold text-slate-800 mb-0.5">Sucursal Principal</p>
+<p class="text-slate-500">Terminal Venta #04</p>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 overflow-y-auto p-6 lg:p-8 bg-slate-50" data-purpose="form-main-container">
+<div class="max-w-6xl mx-auto space-y-6">
+<!-- Breadcrumb & Header Title Section -->
+<div>
+<!-- Breadcrumb navigation -->
+<nav aria-label="Migas de pan" class="flex items-center text-sm font-medium text-slate-500 mb-2">
+<a class="hover:text-brand-800 transition-colors" href="#inicio">Inicio</a>
+<svg class="w-4 h-4 mx-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-slate-900 font-semibold">Registro de venta</span>
+</nav>
+<!-- Page Main Title -->
+<h2 class="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">Registro de venta</h2>
+</div>
+<!-- Sales Form Layout (2 columns responsive) -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="sale-registration-form" onsubmit="event.preventDefault();">
+<!-- BEGIN: FormFieldsColumn -->
+<div class="lg:col-span-7 bg-white p-6 lg:p-7 rounded-2xl border border-slate-200 shadow-sm space-y-5" data-purpose="form-fields">
+<!-- Campo: Fecha * -->
+<div>
+<label class="block text-sm font-semibold text-slate-800 mb-1.5" for="fecha">
+                Fecha <span class="text-red-500 font-bold">*</span>
+</label>
+<div class="relative">
+<input class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm focus:border-brand-800 focus:ring-1 focus:ring-brand-800 transition-all outline-none" id="fecha" name="fecha" required="" type="date" value="2026-10-19"/>
+</div>
+</div>
+<!-- Campo: Cliente * -->
+<div>
+<label class="block text-sm font-semibold text-slate-800 mb-1.5" for="cliente">
+                Cliente <span class="text-red-500 font-bold">*</span>
+</label>
+<input class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm placeholder-slate-400 focus:border-brand-800 focus:ring-1 focus:ring-brand-800 transition-all outline-none" id="cliente" name="cliente" placeholder="Escriba aquí..." required="" type="text"/>
+</div>
+<!-- Campo: Vendedor * -->
+<div>
+<label class="block text-sm font-semibold text-slate-800 mb-1.5" for="vendedor">
+                Vendedor <span class="text-red-500 font-bold">*</span>
+</label>
+<div class="relative">
+<select class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm focus:border-brand-800 focus:ring-1 focus:ring-brand-800 transition-all outline-none" id="vendedor" name="vendedor" required="">
+<option disabled="" selected="" value="">Escriba aquí...</option>
+<option value="v1">Juan Morales - Mostrador</option>
+<option value="v2">Elena Ortiz - Ventas Taller</option>
+<option value="v3">Carlos Domínguez - Asesor Externo</option>
+</select>
+</div>
+</div>
+<!-- Campo: Producto * -->
+<div>
+<label class="block text-sm font-semibold text-slate-800 mb-1.5" for="producto">
+                Producto <span class="text-red-500 font-bold">*</span>
+</label>
+<div class="relative">
+<input class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm placeholder-slate-400 focus:border-brand-800 focus:ring-1 focus:ring-brand-800 transition-all outline-none" id="producto" list="repuestos-list" name="producto" placeholder="Escriba aquí..." required="" type="text"/>
+<datalist id="repuestos-list">
+<option value="Pastillas de Freno Cerámicas - Delanteras">
+</option><option value="Filtro de Aceite Sintético Premium">
+</option><option value="Amortiguador Hidráulico Reforzado">
+</option><option value="Kit Embrague Completo J&amp;E">
+</option><option value="Batería 12V 65Ah Libre Mantenimiento">
+</option></datalist>
+</div>
+</div>
+<!-- Campo: Cantidad * -->
+<div>
+<label class="block text-sm font-semibold text-slate-800 mb-1.5" for="cantidad">
+                Cantidad <span class="text-red-500 font-bold">*</span>
+</label>
+<input class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm placeholder-slate-400 focus:border-brand-800 focus:ring-1 focus:ring-brand-800 transition-all outline-none" id="cantidad" min="1" name="cantidad" placeholder="Escriba aquí..." required="" type="number" value="2"/>
+</div>
+<!-- Campo: Forma de pago -->
+<div class="pt-2">
+<span class="block text-sm font-semibold text-slate-800 mb-2">Forma de pago</span>
+<div class="flex flex-wrap items-center gap-6 pt-1">
+<label class="inline-flex items-center gap-2.5 cursor-pointer">
+<input checked="" class="w-4 h-4 text-brand-800 border-slate-300 focus:ring-brand-800 cursor-pointer" name="forma_pago" type="radio" value="efectivo"/>
+<span class="text-sm font-medium text-slate-700">Efectivo</span>
+</label>
+<label class="inline-flex items-center gap-2.5 cursor-pointer">
+<input class="w-4 h-4 text-brand-800 border-slate-300 focus:ring-brand-800 cursor-pointer" name="forma_pago" type="radio" value="tarjeta"/>
+<span class="text-sm font-medium text-slate-700">Tarjeta</span>
+</label>
+<label class="inline-flex items-center gap-2.5 cursor-pointer">
+<input class="w-4 h-4 text-brand-800 border-slate-300 focus:ring-brand-800 cursor-pointer" name="forma_pago" type="radio" value="transferencia"/>
+<span class="text-sm font-medium text-slate-700">Transferencia</span>
+</label>
+</div>
+</div>
+</div>
+<!-- END: FormFieldsColumn -->
+<!-- BEGIN: SummaryAndActionsColumn -->
+<div class="lg:col-span-5 space-y-6" data-purpose="summary-and-actions">
+<!-- Sales Summary Box -->
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 relative overflow-hidden">
+<div class="border-b border-slate-100 pb-4 mb-4 flex items-center justify-between">
+<h3 class="text-base font-bold text-slate-900">Resumen de la venta</h3>
+<span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Cotización actual</span>
+</div>
+<!-- Breakdown calculation -->
+<div class="space-y-3.5 text-sm">
+<div class="flex justify-between items-center text-slate-600">
+<span>Subtotal</span>
+<span class="font-medium text-slate-900" id="summary-subtotal">$ 120.000</span>
+</div>
+<div class="flex justify-between items-center text-slate-600">
+<span>IVA (19%)</span>
+<span class="font-medium text-slate-900" id="summary-iva">$ 22.800</span>
+</div>
+<div class="border-t border-slate-200 pt-3.5 flex justify-between items-center text-base font-bold text-slate-900">
+<span>Total</span>
+<span class="text-lg text-brand-800 font-extrabold" id="summary-total">$ 142.800</span>
+</div>
+</div>
+<!-- Summary item preview notes -->
+<div class="mt-5 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-500">
+<p>2 x Repuesto genérico estándar</p>
+<p class="text-[11px] text-slate-400 mt-0.5">Precios expresados en moneda nacional (CLP / COP según región)</p>
+</div>
+</div>
+<!-- Action Buttons Block -->
+<div class="space-y-3">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Botón primario: Registrar venta (Filled institutional green) -->
+<button class="w-full inline-flex justify-center items-center px-5 py-3 rounded-xl font-bold text-sm text-white bg-brand-800 hover:bg-brand-700 active:bg-brand-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-800 shadow-md transition-all duration-150" data-purpose="submit-button" type="submit">
+                  Registrar venta
+                </button>
+<!-- Botón secundario: Cancelar (Neutral outline) -->
+<button class="w-full inline-flex justify-center items-center px-5 py-3 rounded-xl font-semibold text-sm text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 active:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 transition-all duration-150" data-purpose="cancel-button" onclick="document.getElementById('sale-registration-form').reset();" type="button">
+                  Cancelar
+                </button>
+</div>
+<!-- Validation and Required Indicator Message -->
+<div class="space-y-1 text-left pt-1">
+<p class="text-xs text-slate-500 flex items-center gap-1 font-medium">
+<span class="text-red-500 font-bold">*</span> Campo obligatorio
+                </p>
+<p class="text-xs text-amber-700 bg-amber-50 border border-amber-200/60 px-3 py-2 rounded-lg flex items-center gap-1.5" id="error-message-hint">
+<svg class="w-4 h-4 shrink-0 text-amber-600" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" fill-rule="evenodd"></path>
+</svg>
+<span>Por favor verifique que todos los campos requeridos estén completos antes de emitir.</span>
+</p>
+</div>
+</div>
+</div>
+<!-- END: SummaryAndActionsColumn -->
+</form>
+</div>
+</main>
+<!-- END: MainContent -->
+</div>
+<!-- BEGIN: PageFooter -->
+<footer class="bg-white border-t border-slate-200 py-3.5 px-6 shrink-0 text-center text-xs text-slate-500 font-medium" data-purpose="site-footer">
+    Pie de página - J&amp;E
+  </footer>
+<!-- END: PageFooter -->
+</body></html>

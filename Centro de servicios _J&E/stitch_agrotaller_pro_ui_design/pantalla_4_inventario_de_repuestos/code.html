@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-50" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Centro de Servicios J&amp;E - Inventario de repuestos</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#133e2b',
+              50: '#f0fdf5',
+              100: '#dcfce8',
+              700: '#15803d',
+              800: '#166534',
+              900: '#133e2b',
+              hover: '#0e2f20'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-enhancements">
+    /* Subtle polish for typography and transitions */
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .table-row-hover:hover {
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col text-slate-800 bg-slate-50 antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs" data-purpose="site-header">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<!-- Brand / Logo Area -->
+<div class="flex items-center gap-3">
+<div aria-label="Logo J&amp;E" class="flex items-center justify-center w-10 h-10 rounded-lg bg-[#133e2b] text-white font-bold text-sm shadow-sm tracking-wider">
+            J&amp;E
+          </div>
+<div>
+<span class="text-lg font-bold text-slate-900 tracking-tight">Centro de Servicios J&amp;E</span>
+<span class="hidden sm:inline-block ml-2 text-xs font-medium px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200">Gestión de Taller</span>
+</div>
+</div>
+<!-- User Profile Area -->
+<div class="flex items-center gap-3" data-purpose="user-profile">
+<div class="text-right hidden sm:block">
+<span class="block text-sm font-semibold text-slate-900 leading-tight">Usuario</span>
+<span class="block text-xs text-slate-500">Administrador</span>
+</div>
+<button aria-label="Menú de usuario" class="relative flex rounded-full ring-2 ring-emerald-700/20 hover:ring-[#133e2b] transition-all focus:outline-hidden" type="button">
+<div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold border-2 border-white shadow-inner">
+<svg class="w-6 h-6 text-slate-400" fill="currentColor" viewbox="0 0 24 24">
+<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"></path>
+</svg>
+</div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContentWrapper -->
+<div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row gap-6">
+<!-- BEGIN: Sidebar -->
+<aside class="w-full md:w-56 shrink-0" data-purpose="main-navigation">
+<nav aria-label="Navegación lateral" class="space-y-1.5">
+<!-- 1. Inicio -->
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-200/60 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Inicio</span>
+</a>
+<!-- 2. Inventario (Activo) -->
+<a aria-current="page" class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold rounded-lg bg-[#133e2b] text-white shadow-xs" href="#">
+<svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Inventario</span>
+</a>
+<!-- 3. Cotizaciones -->
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-200/60 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Cotizaciones</span>
+</a>
+<!-- 4. Pedidos -->
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-200/60 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Pedidos</span>
+</a>
+<!-- 5. Reportes -->
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-200/60 transition-colors" href="#">
+<svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Reportes</span>
+</a>
+</nav>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 flex flex-col min-w-0" data-purpose="inventory-page-content">
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Ruta de navegación" class="flex text-sm text-slate-500 mb-2">
+<ol class="inline-flex items-center space-x-1 sm:space-x-2">
+<li class="inline-flex items-center">
+<a class="text-slate-500 hover:text-slate-700" href="#">Inicio</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="mx-1 text-slate-400">&gt;</span>
+<span class="font-medium text-slate-800">Inventario</span>
+</div>
+</li>
+</ol>
+</nav>
+<!-- Section Title Header -->
+<div class="mb-5">
+<h1 class="text-2xl font-bold tracking-tight text-slate-900">Inventario de repuestos</h1>
+</div>
+<!-- Action Bar: Search Input and Add New Button -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6" data-purpose="table-actions">
+<!-- Search Field -->
+<div class="relative w-full sm:max-w-md">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="block w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm bg-white placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-[#133e2b] focus:border-[#133e2b] transition-shadow shadow-xs" id="search-input" placeholder="Buscar repuesto..." type="text"/>
+</div>
+<!-- Add New Button -->
+<button class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-[#133e2b] hover:bg-[#0e2f20] rounded-lg shadow-xs transition-colors focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#133e2b]" type="button">
+<svg class="-ml-0.5 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+          + Nuevo
+        </button>
+</div>
+<!-- Inventory Data Table Container -->
+<div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden flex flex-col flex-1" data-purpose="inventory-table-container">
+<div class="overflow-x-auto flex-1">
+<table class="min-w-full divide-y divide-slate-200 text-left text-sm" id="inventory-table">
+<!-- Table Header -->
+<thead class="bg-slate-100/90 text-slate-700 font-bold border-b border-slate-200">
+<tr>
+<th class="py-3.5 pl-6 pr-3 text-left font-bold text-slate-900 tracking-wide uppercase text-xs" scope="col">
+                  Código
+                </th>
+<th class="px-4 py-3.5 text-left font-bold text-slate-900 tracking-wide uppercase text-xs" scope="col">
+                  Descripción
+                </th>
+<th class="px-4 py-3.5 text-right font-bold text-slate-900 tracking-wide uppercase text-xs" scope="col">
+                  Stock
+                </th>
+<th class="px-4 py-3.5 text-right font-bold text-slate-900 tracking-wide uppercase text-xs" scope="col">
+                  Precio
+                </th>
+<th class="py-3.5 pl-4 pr-6 text-center font-bold text-slate-900 tracking-wide uppercase text-xs" scope="col">
+                  Acciones
+                </th>
+</tr>
+</thead>
+<!-- Table Body with Wireframe Items -->
+<tbody class="divide-y divide-slate-200 bg-white">
+<!-- Row 1: REP-102 -->
+<tr class="table-row-hover transition-colors">
+<td class="whitespace-nowrap py-4 pl-6 pr-3 font-semibold text-slate-900">
+                  REP-102
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-slate-700">
+                  Bujía de encendido
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-medium text-slate-800">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    24
+                  </span>
+</td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-semibold text-slate-900">
+                  $15.000
+                </td>
+<td class="whitespace-nowrap py-4 pl-4 pr-6 text-center text-sm font-medium">
+<div class="flex items-center justify-center space-x-2">
+<button class="text-[#133e2b] hover:text-emerald-700 hover:underline px-2 py-1 rounded-sm focus:outline-hidden focus:ring-1 focus:ring-[#133e2b]" type="button">
+                      [Editar]
+                    </button>
+<span class="text-slate-300">|</span>
+<button class="text-rose-600 hover:text-rose-800 hover:underline px-2 py-1 rounded-sm focus:outline-hidden focus:ring-1 focus:ring-rose-600" type="button">
+                      [Eliminar]
+                    </button>
+</div>
+</td>
+</tr>
+<!-- Row 2: ACE-305 -->
+<tr class="table-row-hover transition-colors">
+<td class="whitespace-nowrap py-4 pl-6 pr-3 font-semibold text-slate-900">
+                  ACE-305
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-slate-700">
+                  Aceite 10W40
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-medium text-slate-800">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    12
+                  </span>
+</td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-semibold text-slate-900">
+                  $25.000
+                </td>
+<td class="whitespace-nowrap py-4 pl-4 pr-6 text-center text-sm font-medium">
+<div class="flex items-center justify-center space-x-2">
+<button class="text-[#133e2b] hover:text-emerald-700 hover:underline px-2 py-1 rounded-sm" type="button">
+                      [Editar]
+                    </button>
+<span class="text-slate-300">|</span>
+<button class="text-rose-600 hover:text-rose-800 hover:underline px-2 py-1 rounded-sm" type="button">
+                      [Eliminar]
+                    </button>
+</div>
+</td>
+</tr>
+<!-- Row 3: MAN-210 -->
+<tr class="table-row-hover transition-colors">
+<td class="whitespace-nowrap py-4 pl-6 pr-3 font-semibold text-slate-900">
+                  MAN-210
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-slate-700">
+                  Filtro de aire
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-medium text-slate-800">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                    8
+                  </span>
+</td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-semibold text-slate-900">
+                  $18.000
+                </td>
+<td class="whitespace-nowrap py-4 pl-4 pr-6 text-center text-sm font-medium">
+<div class="flex items-center justify-center space-x-2">
+<button class="text-[#133e2b] hover:text-emerald-700 hover:underline px-2 py-1 rounded-sm" type="button">
+                      [Editar]
+                    </button>
+<span class="text-slate-300">|</span>
+<button class="text-rose-600 hover:text-rose-800 hover:underline px-2 py-1 rounded-sm" type="button">
+                      [Eliminar]
+                    </button>
+</div>
+</td>
+</tr>
+<!-- Row 4: REP-118 -->
+<tr class="table-row-hover transition-colors">
+<td class="whitespace-nowrap py-4 pl-6 pr-3 font-semibold text-slate-900">
+                  REP-118
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-slate-700">
+                  Correa de transmisión
+                </td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-medium text-slate-800">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200">
+                    5
+                  </span>
+</td>
+<td class="whitespace-nowrap px-4 py-4 text-right font-semibold text-slate-900">
+                  $42.000
+                </td>
+<td class="whitespace-nowrap py-4 pl-4 pr-6 text-center text-sm font-medium">
+<div class="flex items-center justify-center space-x-2">
+<button class="text-[#133e2b] hover:text-emerald-700 hover:underline px-2 py-1 rounded-sm" type="button">
+                      [Editar]
+                    </button>
+<span class="text-slate-300">|</span>
+<button class="text-rose-600 hover:text-rose-800 hover:underline px-2 py-1 rounded-sm" type="button">
+                      [Eliminar]
+                    </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Footer: < 1 2 3 > -->
+<div class="py-4 border-t border-slate-200 bg-slate-50/70 flex items-center justify-center" data-purpose="table-pagination">
+<nav aria-label="Paginación de resultados" class="flex items-center space-x-2 text-sm font-medium">
+<!-- Previous Button -->
+<button aria-label="Página anterior" class="inline-flex items-center justify-center w-8 h-8 rounded-md text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition-colors" type="button">
+              &lt;
+            </button>
+<!-- Page Numbers -->
+<button aria-current="page" class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[#133e2b] text-white font-semibold shadow-xs" type="button">
+              1
+            </button>
+<button class="inline-flex items-center justify-center w-8 h-8 rounded-md text-slate-700 hover:bg-slate-200 transition-colors" type="button">
+              2
+            </button>
+<button class="inline-flex items-center justify-center w-8 h-8 rounded-md text-slate-700 hover:bg-slate-200 transition-colors" type="button">
+              3
+            </button>
+<!-- Next Button -->
+<button aria-label="Página siguiente" class="inline-flex items-center justify-center w-8 h-8 rounded-md text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition-colors" type="button">
+              &gt;
+            </button>
+</nav>
+</div>
+</div>
+<!-- END: Inventory Data Table Container -->
+</main>
+<!-- END: MainContent -->
+</div>
+<!-- END: MainContentWrapper -->
+<!-- BEGIN: SiteFooter -->
+<footer class="bg-white border-t border-slate-200 mt-auto py-4 text-center text-xs text-slate-500" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      Pie de página - J&amp;E
+    </div>
+</footer>
+<!-- END: SiteFooter -->
+</body></html>

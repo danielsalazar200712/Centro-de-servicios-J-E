@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-50" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Iniciar Sesión - Centro de Servicios J&amp;E</title>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#133e2b',
+              dark: '#0d2b1e',
+              light: '#1b543b',
+              surface: '#f4f7f5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="custom-utilities">
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .custom-shadow {
+      box-shadow: 0 10px 25px -5px rgba(19, 62, 43, 0.08), 0 8px 10px -6px rgba(19, 62, 43, 0.04);
+    }
+  </style>
+<!-- END: Custom Styles -->
+<meta content="web_standard" name="shell-type"/></head>
+<body class="min-h-full flex flex-col justify-between text-slate-800 antialiased selection:bg-brand selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Logo Container -->
+<div class="flex items-center space-x-3.5" data-purpose="brand-logo-container">
+<div class="w-12 h-12 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl tracking-wider shadow-sm border border-brand-dark">
+          J&amp;E
+        </div>
+<div class="flex flex-col">
+<span class="text-xl font-bold tracking-tight text-slate-900 leading-tight">Centro de Servicios J&amp;E</span>
+<span class="text-xs font-medium text-slate-500 uppercase tracking-widest">Maquinaria &amp; Repuestos Especializados</span>
+</div>
+</div>
+<!-- Header Status Tag -->
+<div class="hidden sm:flex items-center space-x-2 text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Sistema Operativo en Línea</span>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col justify-center"><div class="flex flex-col w-full items-center justify-center py-4 sm:py-8">
+<!-- Tarjeta Split Principal de Autenticación / Recuperación -->
+<div class="w-full max-w-5xl bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+<!-- Columna Izquierda: Panel Visual Utilitario e Industrial -->
+<div class="relative w-full md:w-5/12 min-h-[380px] md:min-h-[580px] flex flex-col justify-between p-8 sm:p-10 bg-primary-container text-on-primary overflow-hidden">
+<!-- Imagen de fondo con overlay industrial calibrado -->
+<div class="absolute inset-0 bg-cover bg-center z-0 transform scale-105" data-alt="Modern high-precision agricultural and forestry power tool workshop bench with professional mechanical tools, calibrated motor parts, clean lighting, deep forest green tones, and high-standard industrial technical equipment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_f646f-0tCBmuEjif8rCUhz3AqYG25AHROgwsPosfLSj7zJt6KgQG4oXKL8YrGZXjnmQpLsaov316vuXtwfOVQO8SiXIziqgvQU_WUyxySxk4JRnRSlUMvTNhjlZAWJovYDVHW28snfE4SO-lC-SNFS0hlVShRf0l0pSrF1_eb0ARUxa6cobhuHM7A2-CoYt3Mec1y6a6AgkLjGhe0bLZBNNwBaPWq_dSfkewqZokEnov0QeP_wfj')">
+</div>
+<!-- Overlay profundo tono corporativo #133e2b con gradiente de contraste -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary-container/90 to-primary/80 z-10 backdrop-blur-[1px]"></div>
+<!-- Contenido Superior: Insignia de Certificación Técnica -->
+<div class="relative z-20 flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest/15 backdrop-blur-md text-on-primary rounded-lg font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+          Acceso Corporativo Seguro
+        </span>
+</div>
+<!-- Contenido Inferior: Titular Institucional & Telemetría Operativa -->
+<div class="relative z-20 space-y-4">
+<div class="space-y-2">
+<p class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-widest font-semibold">Plataforma Técnica Oficial</p>
+<h2 class="font-headline-md text-headline-md text-on-primary font-bold tracking-tight">Gestión Integral de Taller y Servicios</h2>
+<p class="font-body-sm text-body-sm text-surface-container-low/90 leading-relaxed">
+            Diagnóstico avanzado, control de repuestos OEM y trazabilidad técnica en tiempo real para maquinaria agrícola y forestal.
+          </p>
+</div>
+<!-- Indicador de auditoría DIAN / Integridad -->
+<div class="pt-4 flex items-center justify-between text-on-primary-container/80 font-code-tech text-code-tech">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Terminal v4.28 // SSL Activo
+          </span>
+<span>DIAN Sync</span>
+</div>
+</div>
+</div>
+<!-- Columna Derecha: Formulario de Recuperación Limpio y Calibrado -->
+<div class="w-full md:w-7/12 p-8 sm:p-12 lg:p-14 bg-surface-container-lowest flex flex-col justify-between">
+<div class="space-y-6">
+<!-- Encabezado del Formulario -->
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-primary font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+<span>Módulo de Credenciales</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Recuperar contraseña</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Ingrese su usuario o correo electrónico corporativo registrado para recibir instrucciones de restablecimiento.
+          </p>
+</div>
+<!-- Mensaje de Feedback Dinámico (Oculto inicialmente) -->
+<div class="hidden p-4 rounded-xl font-body-sm text-body-sm transition-all duration-200" id="status-alert"></div>
+<!-- Formulario Técnico -->
+<form class="space-y-5" id="recovery-form" onsubmit="event.preventDefault(); handlePasswordReset();">
+<!-- Campo Usuario / Correo -->
+<div class="space-y-1">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="recovery-identity">
+              Usuario o Correo corporativo <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-outline text-[20px] pointer-events-none">alternate_email</span>
+<input autocomplete="username" class="w-full pl-11 pr-4 py-2.5 bg-surface-container-low text-on-surface placeholder:text-outline/70 rounded-lg text-body-md font-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors duration-150 shadow-inner" id="recovery-identity" name="identity" placeholder="ejemplo@je-servicios.com o usuario.taller" required="" type="text"/>
+</div>
+</div>
+<!-- Mensaje Informativo / Alerta de Seguridad (15 min) -->
+<div class="flex items-start gap-3 p-3.5 bg-surface-container-low rounded-xl text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">schedule</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+              Por políticas de seguridad industrial, el enlace generado tendrá una <span class="font-semibold text-on-surface">validez estricta de 15 minutos</span>.
+            </p>
+</div>
+<!-- Acciones de Envío -->
+<div class="space-y-3 pt-2">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-6 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md font-semibold tracking-wide hover:bg-primary transition-all duration-150 shadow-md active:scale-[0.99] cursor-pointer" id="submit-btn" type="submit">
+<span class="material-symbols-outlined text-[18px]">outgoing_mail</span>
+<span>Enviar enlace de recuperación</span>
+</button>
+<!-- Retorno a Inicio de Sesión -->
+<a class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 text-on-surface-variant hover:text-on-surface rounded-lg font-label-md text-label-md transition-colors duration-150 text-center" href="#" onclick="event.preventDefault(); history.back();">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Volver al inicio de sesión</span>
+</a>
+</div>
+</form>
+</div>
+<!-- Tarjeta Inferior de Soporte Técnico / Administrador -->
+<div class="mt-8 pt-6 bg-surface-container-low rounded-xl p-4 flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-[20px]">engineering</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-sm text-label-sm font-semibold text-on-surface">¿No tiene acceso a su correo?</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Contacte al Administrador del taller para un restablecimiento directo.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-script interactivo para validación fluida -->
+<script>
+    function handlePasswordReset() {
+      const input = document.getElementById('recovery-identity');
+      const alertBox = document.getElementById('status-alert');
+      const submitBtn = document.getElementById('submit-btn');
+
+      if (!input.value.trim()) {
+        alertBox.className = 'p-4 rounded-xl font-body-sm text-body-sm bg-error-container text-on-error-container flex items-center gap-2.5';
+        alertBox.innerHTML = '<span class="material-symbols-outlined text-[20px]">error</span><span>Por favor, ingrese un usuario o correo corporativo válido.</span>';
+        alertBox.classList.remove('hidden');
+        input.focus();
+        return;
+      }
+
+      // Estado de carga visual sin interrupción de flujo
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75');
+      submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span><span>Procesando solicitud...</span>';
+
+      setTimeout(() => {
+        alertBox.className = 'p-4 rounded-xl font-body-sm text-body-sm bg-surface-container-high text-primary flex items-start gap-2.5';
+        alertBox.innerHTML = '<span class="material-symbols-outlined text-[20px] text-primary shrink-0 mt-0.5">check_circle</span><div><p class="font-semibold">Solicitud enviada exitosamente</p><p class="text-on-surface-variant mt-0.5">Si el usuario o correo está registrado, recibirá el enlace de reinicio en breve. Verifique su bandeja de entrada.</p></div>';
+        alertBox.classList.remove('hidden');
+
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75');
+        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">outgoing_mail</span><span>Reenviar enlace</span>';
+      }, 700);
+    }
+  </script>
+</div></main>
+<!-- END: MainContent -->
+<!-- BEGIN: MainFooter -->
+<footer class="w-full bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-4">
+<p>Pie de página - J&amp;E</p>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>
