@@ -10,14 +10,15 @@ import {
   BookOpenCheck,
   ShieldCheck,
   ChevronRight,
-  Info
+  Info,
+  Database
 } from 'lucide-react';
 import Modal from '../components/common/Modal';
 import { useAppData } from '../context/AppDataContext';
 import { useAuth } from '../context/AuthContext';
 
 export default function Sidebar({ isOpenMobile, onCloseMobile }) {
-  const { dianInfo } = useAppData();
+  const { dianInfo, isSupabaseConfigured, isCloudSynced } = useAppData();
   const { currentUser, hasPermission } = useAuth();
   const [showDianModal, setShowDianModal] = useState(false);
 
@@ -84,13 +85,13 @@ export default function Sidebar({ isOpenMobile, onCloseMobile }) {
         })}
       </nav>
 
-      {/* Bottom status badge: Servidor y DIAN En Línea */}
+      {/* Bottom status badge: DIAN + Supabase Cloud Status */}
       <div className="p-3.5 border-t border-surface-border bg-surface-bg">
         <button
           type="button"
           onClick={() => setShowDianModal(true)}
           className="w-full text-left p-3 rounded-xl bg-white border border-surface-border hover:border-emerald-300 transition-all cursor-pointer group shadow-2xs"
-          aria-label="Ver estado de conexión con la DIAN"
+          aria-label="Ver estado de conexión con la DIAN y Base de Datos"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -99,30 +100,50 @@ export default function Sidebar({ isOpenMobile, onCloseMobile }) {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
               </span>
               <span className="text-xs font-display font-bold text-slate-800">
-                DIAN En Línea
+                {isSupabaseConfigured ? 'Supabase Cloud + DIAN' : 'DIAN En Línea'}
               </span>
             </div>
             <Info className="w-3.5 h-3.5 text-slate-400 group-hover:text-agri" />
           </div>
           <p className="text-[10px] text-surface-muted mt-1 pl-4 font-mono">
-            Rol: {currentUser?.rol || 'Administrador'}
+            {isSupabaseConfigured
+              ? isCloudSynced
+                ? 'PostgreSQL Sincronizado'
+                : 'Conectando a Supabase...'
+              : 'Modo Local (Supabase Ready)'}
           </p>
         </button>
       </div>
 
-      {/* DIAN Info Modal */}
+      {/* DIAN & Supabase Info Modal */}
       <Modal
         isOpen={showDianModal}
         onClose={() => setShowDianModal(false)}
-        title="Estado del Servicio de Facturación Electrónica DIAN"
-        subtitle="Parámetros técnicos y resolución fiscal activa"
+        title="Estado de Infraestructura: Base de Datos Supabase y Facturación DIAN"
+        subtitle="Parámetros de conexión en la nube y resolución fiscal activa"
         size="md"
       >
         <div className="space-y-4 text-xs text-slate-700">
           <div className="flex items-center gap-3 p-3.5 rounded-xl bg-agri-soft border border-emerald-200">
+            <Database className="w-6 h-6 text-agri flex-shrink-0" />
+            <div>
+              <p className="font-bold text-agri">
+                {isSupabaseConfigured
+                  ? 'Base de Datos PostgreSQL (Supabase) Conectada'
+                  : 'Integración Supabase Lista (.env pendiente)'}
+              </p>
+              <p className="text-slate-600 text-[11px]">
+                {isSupabaseConfigured
+                  ? 'Todas las operaciones se sincronizan en tiempo real con las tablas en la nube.'
+                  : 'Ejecuta supabase/schema.sql en el SQL Editor de Supabase y configura VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY en el archivo .env.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-3.5 rounded-xl bg-surface-bg border border-surface-border">
             <ShieldCheck className="w-6 h-6 text-agri flex-shrink-0" />
             <div>
-              <p className="font-bold text-agri">WebService DIAN Operativo</p>
+              <p className="font-bold text-slate-900">WebService DIAN Operativo</p>
               <p className="text-slate-600 text-[11px]">
                 Intercambio de datos estructurados XML/UBL 2.1 y generación de CUFE habilitada.
               </p>

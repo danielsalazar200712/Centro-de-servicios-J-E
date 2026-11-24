@@ -2,8 +2,8 @@
 **Proyecto:** Sistema de Información Centro de Servicios J&E  
 **Entidad Formativa:** SENA — Tecnología en Análisis y Desarrollo de Software (ADSO)  
 **Ficha:** 3386122  
-**Revisión Actual:** 1.1 (Sincronizada con el código fuente del proyecto)  
-**Fecha de última actualización:** Noviembre 2026  
+**Revisión Actual:** 1.2 (Sincronizada con el código fuente e integración Supabase PostgreSQL)  
+**Fecha de última actualización:** 23 de Noviembre de 2026  
 
 ---
 
@@ -13,6 +13,7 @@
 | :--- | :--- | :--- | :--- |
 | 01/07/2026 | 1.0 | **Equipo de Desarrollo ADSO - Ficha 3386122**<br>- Camilo Espinosa<br>- Yarlei Stiven Posada<br>- Daniel Salazar<br>- Álvaro Ríos<br>- Juan Fernando Castañeda | Versión inicial del SRS conforme al estándar IEEE 830. Pendiente de validación. |
 | 23/11/2026 | 1.1 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Alineación integral del Frontend React + Vite + Tailwind CSS con los requisitos RF-001 a RF-010, RNF-001 a RNF-007, interfaz SaaS Premium (Outfit / Plus Jakarta Sans / JetBrains Mono), inicio en limpio sin datos de muestra, calculadora de mezcla 2T y factura electrónica DIAN imprimible con descarga XML UBL 2.1. |
+| 23/11/2026 | 1.2 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Integración de capa Backend-as-a-Service (BaaS) y Base de Datos Relacional PostgreSQL en **Supabase** (`supabase/schema.sql`, `src/lib/supabaseClient.js` y sincronización bidireccional en `src/context/AppDataContext.jsx`). |
 
 ### Firmas de Validación
 - **Por el cliente (Centro de Servicios J&E):** Fdo. D./Dña: ___________________________
@@ -42,12 +43,9 @@
    - 3.2 Requisitos no funcionales (RNF-001 a RNF-007)
    - 3.3 Restricciones (R-001 a R-003)
    - 3.4 Requisitos comunes de las interfaces (3.1.1 a 3.1.4)
-   - 3.5 Detalle operativo de requisitos funcionales (3.2.1 a 3.2.10)
-   - 3.6 Detalle de atributos de calidad y seguridad (3.3.1 a 3.3.7)
-   - 3.7 Otros requisitos (Legales, organizacionales, culturales y de usabilidad)
-4. **APÉNDICES Y TRAZABILIDAD CON EL CÓDIGO FUENTE**
-   - 4.1 Diagramas complementarios (Arquitectura, Casos de uso, Clases, Secuencia, Flujo)
-   - 4.2 Prototipos de interfaz y Matriz de Trazabilidad de Módulos Implementados
+4. **APÉNDICES, ESQUEMA DE BASE DE DATOS Y TRAZABILIDAD**
+   - 4.1 Esquema Relacional PostgreSQL en Supabase (9 tablas operativas)
+   - 4.2 Arquitectura de Componentes del Proyecto Actual
 
 ---
 
@@ -67,12 +65,6 @@ Este documento está dirigido a:
 ### 1.1 Propósito
 El propósito de este documento es establecer de manera formal, precisa y verificable los requisitos del **Sistema de Información del Centro de Servicios J&E**, garantizando que todas las partes involucradas compartan una comprensión común del alcance, funcionalidades y restricciones del proyecto.
 
-El SRS sirve como:
-- **Contrato técnico** entre los stakeholders y el equipo de desarrollo.
-- **Guía de trazabilidad**, permitiendo vincular cada requisito con su origen, módulo de código, validación y pruebas correspondientes.
-- **Referencia normativa y metodológica**, alineada con el estándar **IEEE 830** y con la normativa de la **DIAN** sobre facturación electrónica.
-- **Herramienta de calidad**, que reduce riesgos de ambigüedad, reprocesos y errores durante el ciclo de vida del software.
-
 ### 1.2 Alcance
 El sistema de información del **Centro de Servicios J&E** permite gestionar de manera digital y centralizada los procesos administrativos y operativos del taller, incluyendo:
 - Registro y control de ventas y pedidos de clientes.
@@ -84,8 +76,7 @@ El sistema de información del **Centro de Servicios J&E** permite gestionar de 
 - Registro de devoluciones de productos o repuestos con actualización automática del inventario.
 - Módulo de asesorías técnicas para clientes sobre el uso, mezcla de combustible 2T y mantenimiento preventivo de equipos.
 - Panel de control (**Dashboard**) con asistente de inicio rápido e indicadores en tiempo real.
-
-El sistema **no incluirá** funcionalidades relacionadas con la gestión de nómina, recursos humanos o administración de personal, ya que estas se encuentran fuera del alcance del proyecto. Tampoco contempla módulos de contabilidad avanzada ni integración con sistemas externos distintos a la DIAN en esta primera versión.
+- Persistencia híbrida sincronizada con **PostgreSQL en Supabase** y respaldo instantáneo local.
 
 ### 1.3 Personal involucrado (Stakeholders)
 
@@ -101,13 +92,8 @@ El sistema **no incluirá** funcionalidades relacionadas con la gestión de nóm
 - **R (Restricción):** Condición o limitación que debe cumplir el sistema, ya sea de carácter técnico, legal, normativo o de alcance.
 - **DIAN (Dirección de Impuestos y Aduanas Nacionales):** Entidad colombiana encargada de regular y supervisar los procesos tributarios y de validar la facturación electrónica.
 - **CUFE (Código Único de Facturación Electrónica):** Identificador criptográfico alfanumérico que respalda inequívocamente cada factura electrónica ante la DIAN.
-- **SRS / ERS:** Especificación de Requisitos de Software (*Software Requirements Specification*).
-- **IEEE 830:** Estándar utilizado como referencia para la elaboración de especificaciones de requisitos de software.
+- **Supabase (PostgreSQL BaaS):** Plataforma de base de datos relacional PostgreSQL en la nube con API REST automática (PostgREST) y políticas de seguridad por filas (RLS).
 - **Kardex:** Registro estructurado y cronológico de todas las entradas, salidas, ajustes y devoluciones de inventario.
-- **Stock:** Cantidad disponible de productos, repuestos o materiales almacenados dentro del inventario.
-- **Dashboard:** Panel de control que presenta información relevante mediante indicadores y estadísticas para facilitar la toma de decisiones.
-- **Frontend:** Capa del sistema con la que interactúa el usuario, desarrollada en React 18 + Vite + Tailwind CSS.
-- **Backend:** Capa del sistema responsable de la lógica de negocio, procesamiento de datos y comunicación con la base de datos y API DIAN.
 
 ### 1.5 Referencias
 
@@ -122,28 +108,14 @@ El sistema **no incluirá** funcionalidades relacionadas con la gestión de nóm
 | **REF-007** | ISO/IEC 25010:2011 - Systems and Software Quality Models | https://www.iso.org | 2011 | ISO / IEC |
 | **REF-008** | ISO/IEC 12207 - Software Life Cycle Processes | https://www.iso.org | 2017 | ISO / IEC |
 
-### 1.6 Resumen
-El documento se organiza en cuatro secciones principales siguiendo el estándar IEEE 830: Introducción, Descripción General, Requisitos Específicos y Apéndices con trazabilidad directa al código fuente del proyecto.
-
 ---
 
 ## 2. Descripción General
 
 ### 2.1 Perspectiva del producto
-El sistema de información para el **Centro de Servicios J&E** es un producto web independiente, desarrollado para optimizar la gestión de los procesos administrativos y operativos del taller especializado en maquinaria agroforestal (**STIHL, Husqvarna, Royal Cóndor, Honda**). Cuenta con cumplimiento normativo para facturación electrónica de la DIAN y una arquitectura preparada para conectarse mediante API REST a una base de datos relacional.
+El sistema de información para el **Centro de Servicios J&E** es una aplicación web moderna (SPA en React 18 + Vite + Tailwind CSS) conectada mediante API REST (`src/lib/supabaseClient.js`) a una base de datos relacional **PostgreSQL en Supabase** (`supabase/schema.sql`), cumpliendo la arquitectura de 4 capas definida en el Apéndice 4.1 del documento IEEE 830 (Frontend, Backend/API REST, Servicio de Facturación DIAN y Base de Datos SQL).
 
-### 2.2 Funcionalidad del producto
-- Registro y gestión de ventas y pedidos de clientes.
-- Actualización automática del inventario de repuestos y materiales.
-- Generación de cotizaciones para servicios de reparación.
-- Emisión de facturación electrónica conforme a la normativa de la DIAN.
-- Generación y exportación de reportes administrativos en formato PDF y Excel.
-- Gestión del historial de reparaciones realizadas a cada cliente.
-- Registro de devoluciones con reingreso automático a stock o trazabilidad por garantía.
-- Módulo de asesorías técnicas con calculadora de mezcla 2T y recomendaciones para los clientes.
-- Panel de control (Dashboard) con indicadores reales y asistente de inicio rápido.
-
-### 2.3 Características de los usuarios
+### 2.2 Características de los usuarios
 
 | Tipo de Usuario | Formación | Habilidades | Actividades en el Sistema |
 | :--- | :--- | :--- | :--- |
@@ -152,39 +124,24 @@ El sistema de información para el **Centro de Servicios J&E** es un producto we
 | **Cliente** | No requiere formación específica. | Conocimientos básicos para consultar información mediante una interfaz intuitiva. | Consultar el estado de sus pedidos, visualizar facturas electrónicas, acceder al historial de reparaciones y consultar el módulo de asesorías técnicas. |
 | **Proveedor** | Personal administrativo o comercial del proveedor. | Gestión de pedidos, suministro de repuestos y herramientas digitales. | Atender órdenes de abastecimiento, suministrar repuestos y consultar niveles de stock en catálogo. |
 
-### 2.4 Restricciones
-- El sistema opera íntegramente en **idioma español**.
-- No incluye módulos de nómina, recursos humanos o administración de personal.
-- Cumple con los campos obligatorios de la normativa vigente de la DIAN para facturación electrónica.
-- La validación en producción de la facturación electrónica depende de la disponibilidad de los servicios web de la DIAN y conexión a Internet.
-
-### 2.5 Suposiciones y dependencias
-- Disponibilidad de conexión a Internet y navegadores modernos en computadores de escritorio, portátiles o dispositivos móviles.
-- Registro oportuno y veraz de la información por parte de los usuarios operativos del taller.
-
-### 2.6 Evolución previsible del sistema
-- Integración con pasarelas de pago electrónicas (PSE / Nequi / Botón Bancolombia).
-- Notificaciones automáticas vía WhatsApp o correo electrónico sobre el cambio de estado de pedidos y reparaciones.
-- Conexión del Frontend con API REST Backend y base de datos SQL persistente en la nube.
-
 ---
 
 ## 3. Requisitos Específicos
 
 ### 3.1 Requisitos Funcionales (RF)
 
-| Código | Nombre del Requisito | Fuente | Prioridad | Descripción y Criterio de Aceptación | Módulo en Código |
+| Código | Nombre del Requisito | Fuente | Prioridad | Descripción y Criterio de Aceptación | Módulo en Código / Tabla SQL |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **RF-001** | **Registro de ventas** | Administrador / Vendedor | Alta (Esencial) | El sistema deberá permitir registrar las ventas almacenando cliente, documento, productos/servicios vendidos, cantidades, fecha, vendedor responsable, forma de pago y valor total con IVA (19%). Permite seleccionar del catálogo o añadir conceptos libres. | `src/pages/VentasPedidos.jsx` |
-| **RF-002** | **Actualización automática del inventario** | Administrador | Alta (Esencial) | El sistema deberá actualizar automáticamente el inventario cada vez que se registre una venta, un consumo en taller, una devolución o el ingreso de bodega de proveedores, reflejando el stock en tiempo real, evitando duplicados y registrando cada movimiento en el Kardex. | `src/pages/Inventario.jsx`<br>`src/context/AppDataContext.jsx` |
-| **RF-003** | **Dashboard administrativo** | Administrador | Media (Deseado) | El sistema deberá disponer de un panel de control que presente indicadores reales sobre ventas facturadas, catálogo e inventario, pedidos/cotizaciones y órdenes de taller, incluyendo una guía interactiva de inicio rápido cuando el sistema está limpio. | `src/pages/Dashboard.jsx` |
-| **RF-004** | **Generación de cotizaciones** | Administrador | Alta (Esencial) | El sistema deberá permitir elaborar, consultar, modificar, aprobar, imprimir y convertir en factura DIAN las cotizaciones de reparación, desglosando repuestos, mano de obra e IVA (19%). | `src/pages/Cotizaciones.jsx` |
-| **RF-005** | **Gestión de pedidos** | Cliente / Administrador | Alta (Esencial) | El sistema deberá permitir registrar, consultar y realizar el seguimiento de los pedidos efectuados por los clientes, indicando su estado (**Pendiente**, **En proceso** o **Entregado**) y conservando la línea de tiempo del historial de cada pedido. | `src/pages/VentasPedidos.jsx` (Pestaña Pedidos) |
-| **RF-006** | **Facturación electrónica** | Administrador / DIAN | Alta (Esencial) | El sistema deberá generar facturas electrónicas conforme a la normativa DIAN, incluyendo numeración autorizada, CUFE, QR de verificación, valor total en letras en Pesos Colombianos, impresión limpia en formato A4 y descarga de contenedor XML UBL 2.1. | `src/pages/VentasPedidos.jsx` (Vista Factura A4) |
-| **RF-007** | **Historial de reparaciones** | Técnico | Media (Deseado) | El sistema deberá almacenar y consultar el historial de reparaciones realizadas a cada cliente, incluyendo fecha del servicio, equipo, serie, diagnóstico, checklist mecánico, actividades efectuadas, repuestos utilizados y observaciones del técnico. | `src/pages/TallerReparaciones.jsx` |
-| **RF-008** | **Generación de reportes** | Administrador | Media (Deseado) | El sistema deberá generar reportes administrativos sobre ventas, inventario, pedidos, reparaciones, devoluciones y bitácora de auditoría, permitiendo su visualización en pantalla y su exportación en formatos **PDF** y **Excel (`.csv`)**. | `src/pages/Reportes.jsx` |
-| **RF-009** | **Registro de devoluciones** | Administrador | Media (Deseado) | El sistema deberá permitir registrar las devoluciones de productos o repuestos asociadas a una factura, actualizando automáticamente el inventario y dejando evidencia del motivo, fecha y usuario responsable. | `src/pages/VentasPedidos.jsx` (Pestaña Devoluciones) |
-| **RF-010** | **Módulo de asesorías** | Cliente | Baja (Opcional) | El sistema deberá ofrecer un módulo de asesorías donde se consulten recomendaciones de mantenimiento preventivo, calculadora interactiva de mezcla 2T (1:50 y 1:40 en litros/galones) y registro de consultas técnicas personalizadas. | `src/pages/Asesorias.jsx` |
+| **RF-001** | **Registro de ventas** | Administrador / Vendedor | Alta (Esencial) | Permite registrar ventas almacenando cliente, documento, productos/servicios vendidos, cantidades, fecha, vendedor responsable, forma de pago y valor total con IVA (19%). | `src/pages/VentasPedidos.jsx`<br>Tabla: `public.ventas_facturas` |
+| **RF-002** | **Actualización automática del inventario** | Administrador | Alta (Esencial) | Actualiza automáticamente el inventario ante cada venta, consumo en taller, devolución o entrada de bodega, reflejando el stock en tiempo real y registrando el movimiento en el Kardex. | `src/pages/Inventario.jsx`<br>Tablas: `public.inventario`, `public.kardex_movimientos` |
+| **RF-003** | **Dashboard administrativo** | Administrador | Media (Deseado) | Panel de control con indicadores reales sobre ventas facturadas, catálogo e inventario, pedidos/cotizaciones y órdenes de taller, más asistente de inicio rápido. | `src/pages/Dashboard.jsx` |
+| **RF-004** | **Generación de cotizaciones** | Administrador | Alta (Esencial) | Permite elaborar, consultar, modificar, aprobar, imprimir y convertir en factura DIAN las cotizaciones de reparación con repuestos, mano de obra e IVA (19%). | `src/pages/Cotizaciones.jsx`<br>Tabla: `public.cotizaciones` |
+| **RF-005** | **Gestión de pedidos** | Cliente / Administrador | Alta (Esencial) | Permite registrar, consultar y realizar el seguimiento de pedidos indicando su estado (**Pendiente**, **En proceso** o **Entregado**) y conservando su historial. | `src/pages/VentasPedidos.jsx`<br>Tabla: `public.pedidos` |
+| **RF-006** | **Facturación electrónica** | Administrador / DIAN | Alta (Esencial) | Genera facturas electrónicas conforme a la normativa DIAN, con numeración autorizada, CUFE, QR, valor en letras en COP, impresión A4 y descarga XML UBL 2.1. | `src/pages/VentasPedidos.jsx`<br>Tabla: `public.ventas_facturas` |
+| **RF-007** | **Historial de reparaciones** | Técnico | Media (Deseado) | Almacena y consulta el historial de reparaciones por cliente, incluyendo fecha, equipo, serie, diagnóstico, checklist, actividades efectuadas, repuestos y observaciones. | `src/pages/TallerReparaciones.jsx`<br>Tabla: `public.ordenes_taller` |
+| **RF-008** | **Generación de reportes** | Administrador | Media (Deseado) | Genera reportes sobre ventas, inventario, pedidos, reparaciones, devoluciones y auditoría, con vista en pantalla y exportación en **PDF** y **Excel (`.csv`)**. | `src/pages/Reportes.jsx` |
+| **RF-009** | **Registro de devoluciones** | Administrador | Media (Deseado) | Registra devoluciones asociadas a una factura, actualizando automáticamente el inventario y dejando evidencia del motivo, fecha y usuario responsable. | `src/pages/VentasPedidos.jsx`<br>Tabla: `public.devoluciones` |
+| **RF-010** | **Módulo de asesorías** | Cliente | Baja (Opcional) | Ofrece guías de mantenimiento preventivo, calculadora interactiva de mezcla 2T (1:50 y 1:40) y registro de consultas técnicas personalizadas. | `src/pages/Asesorias.jsx`<br>Tabla: `public.consultas_asesoria` |
 
 ---
 
@@ -192,79 +149,50 @@ El sistema de información para el **Centro de Servicios J&E** es un producto we
 
 | Código | Nombre del Requisito | Fuente | Prioridad | Especificación Técnica |
 | :--- | :--- | :--- | :--- | :--- |
-| **RNF-001** | **Rendimiento del sistema** | Administrador | Alta (Esencial) | Tiempos de respuesta inmediatos en consultas, cálculos de facturación, buscador global (`Ctrl + K`) y filtrado de tablas, manteniendo estabilidad hasta 10.000 registros. |
-| **RNF-002** | **Seguridad de la información** | Administrador | Alta (Esencial) | Autenticación mediante usuario y contraseña (`Login.jsx`), recuperación de contraseña, control de acceso basado en roles (`Administrador`, `Técnico`, `Cliente`, `Proveedor`) que filtra los módulos visibles en `Sidebar.jsx` y registro automático de actividades en bitácora de auditoría (`auditLogs`). |
-| **RNF-003** | **Fiabilidad del sistema** | Administrador | Media (Deseado) | Persistencia segura de datos, validación de stock para impedir saldos negativos, validación de unicidad al crear productos en el catálogo y opción controlada de reinicio en limpio. |
-| **RNF-004** | **Disponibilidad del sistema** | Administrador | Alta (Esencial) | Disponibilidad continua (99%) durante la jornada laboral del Centro de Servicios J&E. |
-| **RNF-005** | **Mantenibilidad** | Equipo de desarrollo | Media (Deseado) | Arquitectura modular en React basada en Contextos (`AuthContext`, `AppDataContext`), componentes reutilizables (`Modal`, `StatCard`, `Badge`, `GlobalSearchModal`) y páginas desacopladas. |
-| **RNF-006** | **Portabilidad** | Administrador | Media (Deseado) | Compatible con los principales navegadores web modernos (Chrome, Edge, Firefox, Safari) en sistemas Windows, macOS, Linux, Android e iOS. |
-| **RNF-007** | **Compatibilidad y Diseño Adaptable** | Administrador | Media (Deseado) | Interfaz *Responsive Design* adaptable a resoluciones móviles, tablets de taller y monitores de escritorio, con estilos dedicados `@media print` para impresión fiscal A4. |
+| **RNF-001** | **Rendimiento del sistema** | Administrador | Alta (Esencial) | Tiempos de respuesta inmediatos con caché optimista en cliente y sincronización asíncrona REST con PostgreSQL en Supabase. |
+| **RNF-002** | **Seguridad de la información** | Administrador | Alta (Esencial) | Autenticación por usuario y contraseña, control de acceso basado en roles (`Administrador`, `Técnico`, `Cliente`, `Proveedor`), políticas RLS en Supabase y bitácora en `public.audit_logs`. |
+| **RNF-003** | **Fiabilidad del sistema** | Administrador | Media (Deseado) | Persistencia dual (Supabase PostgreSQL + respaldo local), validación de stock y prevención de duplicados en catálogo. |
+| **RNF-004** | **Disponibilidad del sistema** | Administrador | Alta (Esencial) | Disponibilidad continua (99.9%) respaldada por infraestructura cloud de Supabase y operación offline-first. |
+| **RNF-005** | **Mantenibilidad** | Equipo de desarrollo | Media (Deseado) | Arquitectura modular en React (`AuthContext`, `AppDataContext`, `supabaseClient.js`) y documentación IEEE 830 auto-sincronizada en `docx/`. |
+| **RNF-006** | **Portabilidad** | Administrador | Media (Deseado) | Compatible con Chrome, Edge, Firefox y Safari en escritorio y dispositivos móviles. |
+| **RNF-007** | **Compatibilidad y Diseño Adaptable** | Administrador | Media (Deseado) | Diseño adaptable (*Responsive Design*) e impresión limpia `@media print` en formato A4. |
 
 ---
 
-### 3.3 Restricciones del Sistema (R)
+## 4. Apéndices, Esquema de Base de Datos y Trazabilidad
 
-- **R-001 Cumplimiento de la normativa DIAN (Alta - Esencial):** Generación, validación y gestión de facturación electrónica con resolución, CUFE, QR y desglose de IVA (19%).
-- **R-002 Alcance del sistema (Alta - Esencial):** Exclusión de módulos de nómina, recursos humanos o administración de personal.
-- **R-003 Idioma del sistema (Alta - Esencial):** Operación 100% en idioma español en todas las interfaces, notificaciones, facturas y reportes exportados.
+### 4.1 Esquema Relacional PostgreSQL en Supabase (`supabase/schema.sql`)
 
----
+| Tabla SQL (`public.*`) | Clave Primaria | Propósito y Requisitos Asociados |
+| :--- | :--- | :--- |
+| `public.inventario` | `id` (`TEXT`) | Catálogo de repuestos e insumos con SKU único, stock, stock mínimo, precio y ubicación (**RF-002**). |
+| `public.kardex_movimientos` | `id` (`TEXT`) | Trazabilidad cronológica de entradas, salidas, consumos en taller y devoluciones (**RF-002, RF-009**). |
+| `public.ordenes_taller` | `id` (`TEXT`) | Órdenes de reparación, diagnóstico, actividades, checklist JSONB y repuestos consumidos (**RF-007**). |
+| `public.cotizaciones` | `id` (`TEXT`) | Presupuestos de reparación con datos de cliente, maquinaria e ítems cotizados (**RF-004**). |
+| `public.ventas_facturas` | `id` (`TEXT`) | Registro de ventas y comprobantes electrónicos DIAN con CUFE y detalle JSONB (**RF-001, RF-006**). |
+| `public.pedidos` | `id` (`TEXT`) | Seguimiento de pedidos de clientes (`Pendiente`, `En proceso`, `Entregado`) e historial (**RF-005**). |
+| `public.devoluciones` | `id` (`TEXT`) | Registro de devoluciones y garantías con motivo, responsable y valor reintegrado (**RF-009**). |
+| `public.consultas_asesoria` | `id` (`TEXT`) | Historial de consultas técnicas y recomendaciones preventivas brindadas a clientes (**RF-010**). |
+| `public.audit_logs` | `id` (`TEXT`) | Bitácora de seguridad y auditoría de acciones por usuario, rol y módulo (**RNF-002 / 3.3.2**). |
 
-### 3.4 Requisitos Comunes de las Interfaces
-
-#### 3.1.1 Interfaces de usuario (Estética SaaS Premium)
-- **Sistema Tipográfico:**
-  - Encabezados y títulos ejecutivos: **`Outfit`** (`font-display`).
-  - Cuerpo de interfaz, formularios y tablas: **`Plus Jakarta Sans`** (`font-sans`).
-  - Códigos SKU, números de serie, CUFE y cifras monetarias: **`JetBrains Mono`** (`font-mono` con `tabular-nums`).
-- **Paleta Cromática "Imperial Forest & Warm Alabaster":**
-  - Lienzo base cálido: `#F5F7F5` (`surface.bg`).
-  - Superficie de tarjetas y modales: `#FFFFFF` con sombras suaves (`shadow-premium`) y bordes esmeralda sutiles (`border-emerald-400/60`).
-  - Verde Bosque Imperial primario: `#0E3525` (`agri.DEFAULT`) y `#0B2B1E` (`agri.dark`).
-- **Control de Vistas por Rol:** Cada usuario visualiza en el menú lateral únicamente los módulos autorizados para su rol (*Administrador*, *Técnico*, *Cliente* o *Proveedor*).
-- **Operación en Limpio e Intuitiva:** El sistema inicia sin artículos ni registros ficticios pre-cargados, presentando estados vacíos guiados y formularios limpios con textos de ayuda (`placeholders`).
-
-#### 3.1.2 Interfaces de hardware
-- Computadores de escritorio, portátiles o dispositivos móviles con procesador de doble núcleo o superior, 4 GB de RAM mínimo, navegador web actualizado e impresora opcional para facturas, cotizaciones y reportes.
-
-#### 3.1.3 Interfaces de software
-- Integración con formato estándar XML UBL 2.1 del Servicio de Facturación Electrónica de la DIAN y exportación CSV/UTF-8 compatible nativamente con Microsoft Excel.
-
-#### 3.1.4 Interfaces de comunicación
-- Transmisión segura bajo protocolo HTTPS/TLS.
-
----
-
-## 4. Apéndices y Matriz de Trazabilidad del Proyecto
-
-### 4.1 Arquitectura de Componentes del Proyecto Actual
+### 4.2 Arquitectura de Archivos del Proyecto
 
 ```
 Centro de servicios_J & E/
+├── .env.example                               # Plantilla de variables VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY
+├── GEMINI.md                                  # Regla de sincronización automática del IEEE 830
 ├── docx/
 │   ├── IEEE_830_Centro_de_Servicios_JE.md     # Documento Maestro IEEE 830 (Editable)
 │   ├── IEEE_830_Centro_de_Servicios_JE.docx   # Documento Microsoft Word generado automáticamente
-│   └── generar_docx.mjs                       # Script generador del archivo .docx
-├── src/
-│   ├── components/
-│   │   ├── common/                            # Modal, StatCard, Badge, ToastContainer, GlobalSearchModal
-│   │   └── inventario/                        # SparePartModal (Creación/edición en catálogo)
-│   ├── context/
-│   │   ├── AuthContext.jsx                    # Autenticación y permisos por rol (RNF-002 / 3.1.1)
-│   │   └── AppDataContext.jsx                 # Lógica de negocio, Kardex, DIAN y Auditoría
-│   ├── data/
-│   │   └── mockData.js                        # Configuración base limpia, roles IEEE 830 y parámetros DIAN
-│   ├── layout/
-│   │   ├── MainLayout.jsx                     # Estructura principal con buscador Ctrl+K
-│   │   ├── Sidebar.jsx                        # Menú lateral filtrado por rol y estado DIAN
-│   │   └── Header.jsx                         # Barra superior, alertas de stock, selector de rol y reinicio en limpio
-│   └── pages/
-│       ├── Login.jsx                          # Ingreso por rol y recuperación de contraseña
-│       ├── Dashboard.jsx                      # RF-003: Panel de control y guía de inicio rápido en 3 pasos
-│       ├── Inventario.jsx                     # RF-002: Catálogo de productos, entrada de bodega y Kardex
-│       ├── Cotizaciones.jsx                   # RF-004: Cotizador de repuestos y mano de obra
-│       ├── VentasPedidos.jsx                  # RF-001, RF-005, RF-006, RF-009: Ventas, Factura DIAN A4, Pedidos y Devoluciones
-│       ├── TallerReparaciones.jsx             # RF-007: Tablero Kanban, checklist mecánico e Historial por Cliente
-│       ├── Asesorias.jsx                      # RF-010: Calculadora mezcla 2T, guías y consultorio técnico
-│       └── Reportes.jsx                       # RF-008 y 3.3.2: Reportes PDF/Excel y Bitácora de Auditoría
+│   └── generar_docx.mjs                       # Generador OpenXML (.docx) sin dependencias externas
+├── supabase/
+│   └── schema.sql                             # Script SQL completo de las 9 tablas y políticas RLS para Supabase
+└── src/
+    ├── lib/
+    │   └── supabaseClient.js                  # Cliente REST PostgREST v1 para conexión con Supabase
+    ├── components/
+    ├── context/
+    ├── data/
+    ├── layout/
+    └── pages/
 ```

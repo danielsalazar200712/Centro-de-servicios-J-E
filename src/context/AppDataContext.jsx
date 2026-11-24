@@ -13,11 +13,11 @@ import {
   SERVICE_PACKAGES,
   DIAN_STATUS_INFO
 } from '../data/mockData';
+import { supabaseRest, isSupabaseConfigured } from '../lib/supabaseClient';
 
 const AppDataContext = createContext(null);
 
 export const AppDataProvider = ({ children }) => {
-  // Base de datos local inicializada en limpio (v4 clean)
   const [inventory, setInventory] = useState(() => {
     const saved = localStorage.getItem('centro_je_clean_v4_inventory');
     return saved ? JSON.parse(saved) : INITIAL_INVENTORY;
@@ -68,11 +68,220 @@ export const AppDataProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : INITIAL_AUDIT_LOGS;
   });
 
+  const [isCloudSynced, setIsCloudSynced] = useState(false);
   const [globalSearch, setGlobalSearch] = useState('');
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [toasts, setToasts] = useState([]);
 
-  // Sincronización automática en localStorage
+  // Cargar datos desde Supabase PostgreSQL al iniciar si VITE_SUPABASE_URL está configurado
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+
+    async function loadFromSupabase() {
+      const [
+        invRows,
+        kardexRows,
+        tallerRows,
+        cotRows,
+        ventasRows,
+        pedidosRows,
+        devRows,
+        consRows,
+        logRows
+      ] = await Promise.all([
+        supabaseRest.selectAll('inventario'),
+        supabaseRest.selectAll('kardex_movimientos'),
+        supabaseRest.selectAll('ordenes_taller'),
+        supabaseRest.selectAll('cotizaciones'),
+        supabaseRest.selectAll('ventas_facturas'),
+        supabaseRest.selectAll('pedidos'),
+        supabaseRest.selectAll('devoluciones'),
+        supabaseRest.selectAll('consultas_asesoria'),
+        supabaseRest.selectAll('audit_logs')
+      ]);
+
+      if (invRows) {
+        setInventory(
+          invRows.map((r) => ({
+            id: r.id,
+            codigo: r.codigo,
+            descripcion: r.descripcion,
+            categoria: r.categoria,
+            marca: r.marca,
+            unidad: r.unidad,
+            maquinaria: r.maquinaria,
+            stock: Number(r.stock),
+            stockMinimo: Number(r.stock_minimo),
+            precioCosto: Number(r.precio_costo),
+            precioUnitario: Number(r.precio_unitario),
+            ubicacion: r.ubicacion,
+            proveedor: r.proveedor,
+            estado: r.estado
+          }))
+        );
+        setIsCloudSynced(true);
+      }
+
+      if (kardexRows) {
+        setKardexMovements(
+          kardexRows.map((r) => ({
+            id: r.id,
+            fecha: r.fecha,
+            tipo: r.tipo,
+            repuestoId: r.repuesto_id,
+            codigo: r.codigo,
+            descripcion: r.descripcion,
+            cantidad: Number(r.cantidad),
+            motivo: r.motivo,
+            usuario: r.usuario,
+            stockAnterior: Number(r.stock_anterior),
+            stockNuevo: Number(r.stock_nuevo)
+          }))
+        );
+      }
+
+      if (tallerRows) {
+        setTallerOrders(
+          tallerRows.map((r) => ({
+            id: r.id,
+            tipoEquipo: r.tipo_equipo,
+            marca: r.marca,
+            modelo: r.modelo,
+            serie: r.serie,
+            propietario: r.propietario,
+            documentoCliente: r.documento_cliente,
+            telefono: r.telefono,
+            tecnicoAsignado: r.tecnico_asignado,
+            fechaIngreso: r.fecha_ingreso,
+            fechaEstimada: r.fecha_estimada,
+            diagnostico: r.diagnostico,
+            actividadesEfectuadas: r.actividades_efectuadas,
+            observacionesTecnico: r.observaciones_tecnico,
+            estado: r.estado,
+            prioridad: r.prioridad,
+            manoObra: Number(r.mano_obra),
+            presupuestoEstimado: Number(r.presupuesto_estimado),
+            progreso: Number(r.progreso),
+            repuestosAsignados: r.repuestos_asignados || [],
+            checklist: r.checklist || {}
+          }))
+        );
+      }
+
+      if (cotRows) {
+        setCotizaciones(
+          cotRows.map((r) => ({
+            id: r.id,
+            fecha: r.fecha,
+            validezDias: Number(r.validez_dias),
+            cliente: r.cliente,
+            maquinaria: r.maquinaria,
+            items: r.items || [],
+            estado: r.estado,
+            subtotal: Number(r.subtotal),
+            iva: Number(r.iva),
+            total: Number(r.total)
+          }))
+        );
+      }
+
+      if (ventasRows) {
+        setVentas(
+          ventasRows.map((r) => ({
+            id: r.id,
+            numeroFactura: r.numero_factura,
+            cufe: r.cufe,
+            fecha: r.fecha,
+            cliente: r.cliente,
+            documentoCliente: r.documento_cliente,
+            direccionCliente: r.direccion_cliente,
+            telefonoCliente: r.telefono_cliente,
+            emailCliente: r.email_cliente,
+            vendedor: r.vendedor,
+            metodoPago: r.metodo_pago,
+            estadoDian: r.estado_dian,
+            itemsCount: Number(r.items_count),
+            subtotal: Number(r.subtotal),
+            iva: Number(r.iva),
+            total: Number(r.total),
+            estadoPedido: r.estado_pedido,
+            itemsDetalle: r.items_detalle || []
+          }))
+        );
+      }
+
+      if (pedidosRows) {
+        setPedidos(
+          pedidosRows.map((r) => ({
+            id: r.id,
+            fecha: r.fecha,
+            cliente: r.cliente,
+            documento: r.documento,
+            telefono: r.telefono,
+            direccionEntrega: r.direccion_entrega,
+            responsable: r.responsable,
+            estado: r.estado,
+            facturaAsociada: r.factura_asociada,
+            items: r.items || [],
+            total: Number(r.total),
+            historial: r.historial || []
+          }))
+        );
+      }
+
+      if (devRows) {
+        setDevoluciones(
+          devRows.map((r) => ({
+            id: r.id,
+            fecha: r.fecha,
+            facturaOrigen: r.factura_origen,
+            cliente: r.cliente,
+            repuestoId: r.repuesto_id,
+            codigo: r.codigo,
+            descripcion: r.descripcion,
+            cantidad: Number(r.cantidad),
+            tipoAccion: r.tipo_accion,
+            motivo: r.motivo,
+            usuarioResponsable: r.usuario_responsable,
+            valorReintegrado: Number(r.valor_reintegrado),
+            estado: r.estado
+          }))
+        );
+      }
+
+      if (consRows) {
+        setConsultasAsesoria(
+          consRows.map((r) => ({
+            id: r.id,
+            fecha: r.fecha,
+            cliente: r.cliente,
+            equipo: r.equipo,
+            consulta: r.consulta,
+            respuestaTecnica: r.respuesta_tecnica,
+            atendidoPor: r.atendido_por,
+            estado: r.estado
+          }))
+        );
+      }
+
+      if (logRows) {
+        setAuditLogs(
+          logRows.map((r) => ({
+            id: r.id,
+            fecha: r.fecha,
+            usuario: r.usuario,
+            rol: r.rol,
+            modulo: r.modulo,
+            accion: r.accion
+          }))
+        );
+      }
+    }
+
+    loadFromSupabase();
+  }, []);
+
+  // Sincronización automática en localStorage (respaldo local instantáneo)
   useEffect(() => {
     localStorage.setItem('centro_je_clean_v4_inventory', JSON.stringify(inventory));
   }, [inventory]);
@@ -148,12 +357,12 @@ export const AppDataProvider = ({ children }) => {
     setConsultasAsesoria([]);
     setKardexMovements([]);
     setAuditLogs([]);
-    showToast('Sistema Reiniciado en Limpio', 'Todos los registros de prueba fueron eliminados.', 'info');
+    showToast('Sistema Reiniciado en Limpio', 'Todos los registros locales fueron eliminados.', 'info');
   };
 
   const logAudit = (modulo, accion, usuario = 'Administrador', rol = 'Administrador') => {
     const newLog = {
-      id: `LOG-${String(auditLogs.length + 1).padStart(3, '0')}`,
+      id: `LOG-${Date.now().toString().slice(-5)}`,
       fecha: new Date().toISOString().replace('T', ' ').substring(0, 19),
       usuario,
       rol,
@@ -161,6 +370,7 @@ export const AppDataProvider = ({ children }) => {
       accion
     };
     setAuditLogs((prev) => [newLog, ...prev]);
+    supabaseRest.upsert('audit_logs', newLog);
   };
 
   const formatCurrency = (val) => {
@@ -227,12 +437,11 @@ export const AppDataProvider = ({ children }) => {
     return inventory.filter((item) => item.stock <= item.stockMinimo);
   }, [inventory]);
 
-  // RF-002: Acciones de Inventario con validación de duplicados
+  // RF-002: Acciones de Inventario con sincronización a Supabase
   const addSparePart = (part, usuario = 'Administrador') => {
     const cleanCode = (part.codigo || '').trim().toUpperCase();
     const cleanDesc = (part.descripcion || '').trim();
 
-    // Validación intuitiva para evitar errores de clave duplicada
     const duplicate = inventory.find(
       (item) =>
         item.codigo.toLowerCase() === cleanCode.toLowerCase() ||
@@ -250,7 +459,7 @@ export const AppDataProvider = ({ children }) => {
 
     const newPart = {
       ...part,
-      id: `REP-${String(inventory.length + 1).padStart(3, '0')}`,
+      id: `REP-${String(inventory.length + 1).padStart(3, '0')}-${Date.now().toString().slice(-3)}`,
       codigo: cleanCode,
       descripcion: cleanDesc,
       unidad: part.unidad || 'Unidad',
@@ -269,8 +478,25 @@ export const AppDataProvider = ({ children }) => {
 
     setInventory((prev) => [newPart, ...prev]);
 
+    supabaseRest.upsert('inventario', {
+      id: newPart.id,
+      codigo: newPart.codigo,
+      descripcion: newPart.descripcion,
+      categoria: newPart.categoria,
+      marca: newPart.marca,
+      unidad: newPart.unidad,
+      maquinaria: newPart.maquinaria,
+      stock: newPart.stock,
+      stock_minimo: newPart.stockMinimo,
+      precio_costo: newPart.precioCosto,
+      precio_unitario: newPart.precioUnitario,
+      ubicacion: newPart.ubicacion,
+      proveedor: newPart.proveedor,
+      estado: newPart.estado
+    });
+
     const newMovement = {
-      id: `MOV-${String(kardexMovements.length + 1).padStart(3, '0')}`,
+      id: `MOV-${Date.now().toString().slice(-6)}`,
       fecha: new Date().toISOString().replace('T', ' ').substring(0, 16),
       tipo: 'Ingreso Inicial',
       repuestoId: newPart.id,
@@ -283,8 +509,22 @@ export const AppDataProvider = ({ children }) => {
       stockNuevo: newPart.stock
     };
     setKardexMovements((prev) => [newMovement, ...prev]);
-    logAudit('Inventario', `Registro de producto ${newPart.codigo} - ${newPart.descripcion} (${newPart.stock} unids)`, usuario);
 
+    supabaseRest.upsert('kardex_movimientos', {
+      id: newMovement.id,
+      fecha: newMovement.fecha,
+      tipo: newMovement.tipo,
+      repuesto_id: newMovement.repuestoId,
+      codigo: newMovement.codigo,
+      descripcion: newMovement.descripcion,
+      cantidad: newMovement.cantidad,
+      motivo: newMovement.motivo,
+      usuario: newMovement.usuario,
+      stock_anterior: newMovement.stockAnterior,
+      stock_nuevo: newMovement.stockNuevo
+    });
+
+    logAudit('Inventario', `Registro de producto ${newPart.codigo} - ${newPart.descripcion} (${newPart.stock} unids)`, usuario);
     showToast('Producto Guardado', `${newPart.codigo} - ${newPart.descripcion} disponible en inventario.`);
     return true;
   };
@@ -301,7 +541,7 @@ export const AppDataProvider = ({ children }) => {
           if (newStock === 0) estado = 'Agotado';
           else if (newStock <= newMin) estado = 'Stock bajo';
 
-          return {
+          const merged = {
             ...item,
             ...updatedFields,
             stock: newStock,
@@ -309,6 +549,23 @@ export const AppDataProvider = ({ children }) => {
             precioUnitario: newPrice,
             estado
           };
+
+          supabaseRest.update('inventario', id, {
+            codigo: merged.codigo,
+            descripcion: merged.descripcion,
+            categoria: merged.categoria,
+            marca: merged.marca,
+            unidad: merged.unidad,
+            maquinaria: merged.maquinaria,
+            stock: merged.stock,
+            stock_minimo: merged.stockMinimo,
+            precio_unitario: merged.precioUnitario,
+            ubicacion: merged.ubicacion,
+            proveedor: merged.proveedor,
+            estado: merged.estado
+          });
+
+          return merged;
         }
         return item;
       })
@@ -328,7 +585,7 @@ export const AppDataProvider = ({ children }) => {
     const tipoMov = tipoOverride || (delta > 0 ? 'Entrada Proveedor' : 'Salida / Consumo');
 
     const newMovement = {
-      id: `MOV-${String(kardexMovements.length + 1).padStart(3, '0')}`,
+      id: `MOV-${Date.now().toString().slice(-6)}`,
       fecha: new Date().toISOString().replace('T', ' ').substring(0, 16),
       tipo: tipoMov,
       repuestoId: item.id,
@@ -341,16 +598,31 @@ export const AppDataProvider = ({ children }) => {
       stockNuevo: newStock
     };
     setKardexMovements((prev) => [newMovement, ...prev]);
+
+    supabaseRest.upsert('kardex_movimientos', {
+      id: newMovement.id,
+      fecha: newMovement.fecha,
+      tipo: newMovement.tipo,
+      repuesto_id: newMovement.repuestoId,
+      codigo: newMovement.codigo,
+      descripcion: newMovement.descripcion,
+      cantidad: newMovement.cantidad,
+      motivo: newMovement.motivo,
+      usuario: newMovement.usuario,
+      stock_anterior: newMovement.stockAnterior,
+      stock_nuevo: newMovement.stockNuevo
+    });
   };
 
   const deleteSparePart = (id) => {
     const part = inventory.find((p) => p.id === id);
     setInventory((prev) => prev.filter((item) => item.id !== id));
+    supabaseRest.remove('inventario', id);
     logAudit('Inventario', `Eliminación de producto ${part?.codigo || id}`);
     showToast('Producto Eliminado', `${part?.codigo || 'Ítem'} retirado del catálogo.`, 'danger');
   };
 
-  // RF-007: Acciones de Taller
+  // RF-007: Acciones de Taller con sincronización a Supabase
   const addTallerOrder = (order) => {
     const newOrder = {
       ...order,
@@ -374,6 +646,31 @@ export const AppDataProvider = ({ children }) => {
       }
     };
     setTallerOrders((prev) => [newOrder, ...prev]);
+
+    supabaseRest.upsert('ordenes_taller', {
+      id: newOrder.id,
+      tipo_equipo: newOrder.tipoEquipo,
+      marca: newOrder.marca,
+      modelo: newOrder.modelo,
+      serie: newOrder.serie,
+      propietario: newOrder.propietario,
+      documento_cliente: newOrder.documentoCliente,
+      telefono: newOrder.telefono,
+      tecnico_asignado: newOrder.tecnicoAsignado,
+      fecha_ingreso: newOrder.fechaIngreso,
+      fecha_estimada: newOrder.fechaEstimada,
+      diagnostico: newOrder.diagnostico,
+      actividades_efectuadas: newOrder.actividadesEfectuadas,
+      observaciones_tecnico: newOrder.observacionesTecnico,
+      estado: newOrder.estado,
+      prioridad: newOrder.prioridad,
+      mano_obra: newOrder.manoObra,
+      presupuesto_estimado: newOrder.presupuestoEstimado,
+      progreso: newOrder.progreso,
+      repuestos_asignados: newOrder.repuestosAsignados,
+      checklist: newOrder.checklist
+    });
+
     logAudit('Taller', `Ingreso de orden ${newOrder.id} (${newOrder.modelo}) para ${newOrder.propietario}`);
     showToast('Orden Creada', `Orden ${newOrder.id} registrada en el taller.`);
     return newOrder;
@@ -414,9 +711,16 @@ export const AppDataProvider = ({ children }) => {
           }
 
           const addedCost = part.precioUnitario * cantidad;
+          const newTotal = (Number(ord.presupuestoEstimado) || 0) + addedCost;
+
+          supabaseRest.update('ordenes_taller', orderId, {
+            presupuesto_estimado: newTotal,
+            repuestos_asignados: updatedParts
+          });
+
           return {
             ...ord,
-            presupuestoEstimado: (Number(ord.presupuestoEstimado) || 0) + addedCost,
+            presupuestoEstimado: newTotal,
             repuestosAsignados: updatedParts
           };
         }
@@ -438,6 +742,11 @@ export const AppDataProvider = ({ children }) => {
           else if (newStatus === 'En Proceso') progreso = 60;
           else if (newStatus === 'Ingresado') progreso = 15;
 
+          supabaseRest.update('ordenes_taller', orderId, {
+            estado: newStatus,
+            progreso
+          });
+
           return {
             ...order,
             estado: newStatus,
@@ -453,7 +762,19 @@ export const AppDataProvider = ({ children }) => {
 
   const updateTallerOrder = (orderId, updatedFields) => {
     setTallerOrders((prev) =>
-      prev.map((order) => (order.id === orderId ? { ...order, ...updatedFields } : order))
+      prev.map((order) => {
+        if (order.id === orderId) {
+          const merged = { ...order, ...updatedFields };
+          supabaseRest.update('ordenes_taller', orderId, {
+            diagnostico: merged.diagnostico,
+            actividades_efectuadas: merged.actividadesEfectuadas,
+            observaciones_tecnico: merged.observacionesTecnico,
+            checklist: merged.checklist
+          });
+          return merged;
+        }
+        return order;
+      })
     );
     logAudit('Taller', `Actualización técnica en orden ${orderId}`);
     showToast('Orden Actualizada', `Se guardaron los cambios de la orden ${orderId}`);
@@ -469,6 +790,20 @@ export const AppDataProvider = ({ children }) => {
       estado: nuevaCotizacion.estado || 'Pendiente'
     };
     setCotizaciones((prev) => [quoteWithId, ...prev]);
+
+    supabaseRest.upsert('cotizaciones', {
+      id: quoteWithId.id,
+      fecha: quoteWithId.fecha,
+      validez_dias: quoteWithId.validezDias || 15,
+      cliente: quoteWithId.cliente,
+      maquinaria: quoteWithId.maquinaria,
+      items: quoteWithId.items,
+      estado: quoteWithId.estado,
+      subtotal: quoteWithId.subtotal,
+      iva: quoteWithId.iva,
+      total: quoteWithId.total
+    });
+
     logAudit('Cotizaciones', `Creación de cotización ${newId} por ${formatCurrency(quoteWithId.total)}`);
     showToast('Cotización Guardada', `Cotización ${newId} generada exitosamente.`);
     return quoteWithId;
@@ -476,7 +811,21 @@ export const AppDataProvider = ({ children }) => {
 
   const updateCotizacion = (quoteId, updatedQuote) => {
     setCotizaciones((prev) =>
-      prev.map((c) => (c.id === quoteId ? { ...c, ...updatedQuote } : c))
+      prev.map((c) => {
+        if (c.id === quoteId) {
+          const merged = { ...c, ...updatedQuote };
+          supabaseRest.update('cotizaciones', quoteId, {
+            cliente: merged.cliente,
+            maquinaria: merged.maquinaria,
+            items: merged.items,
+            subtotal: merged.subtotal,
+            iva: merged.iva,
+            total: merged.total
+          });
+          return merged;
+        }
+        return c;
+      })
     );
     logAudit('Cotizaciones', `Modificación de cotización ${quoteId}`);
     showToast('Cotización Modificada', `Se actualizaron los datos de ${quoteId}.`);
@@ -486,6 +835,7 @@ export const AppDataProvider = ({ children }) => {
     setCotizaciones((prev) =>
       prev.map((c) => (c.id === quoteId ? { ...c, estado: nuevoEstado } : c))
     );
+    supabaseRest.update('cotizaciones', quoteId, { estado: nuevoEstado });
     logAudit('Cotizaciones', `Estado de cotización ${quoteId} cambiado a ${nuevoEstado}`);
     showToast('Estado Actualizado', `Cotización marcada como: ${nuevoEstado}`);
   };
@@ -494,14 +844,7 @@ export const AppDataProvider = ({ children }) => {
     const quote = cotizaciones.find((c) => c.id === quoteId);
     if (!quote) return null;
 
-    const nextInvoiceNumber = `FE-${String(1001 + ventas.length).padStart(6, '0')}`;
-    const cufeHash = Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-
-    const newSale = {
-      id: `VTA-2026-${String(1 + ventas.length).padStart(4, '0')}`,
-      numeroFactura: nextInvoiceNumber,
-      cufe: cufeHash,
-      fecha: new Date().toISOString().replace('T', ' ').substring(0, 16),
+    const newSale = addVenta({
       cliente: quote.cliente.nombre,
       documentoCliente: quote.cliente.documento,
       telefonoCliente: quote.cliente.telefono || '',
@@ -509,7 +852,6 @@ export const AppDataProvider = ({ children }) => {
       emailCliente: quote.cliente.correo || '',
       vendedor: 'Juan Fernando Posada',
       metodoPago: 'Transferencia',
-      estadoDian: 'Aprobada',
       itemsCount: quote.items.reduce((acc, i) => acc + Number(i.cantidad || 1), 0),
       subtotal: quote.subtotal,
       iva: quote.iva,
@@ -523,12 +865,9 @@ export const AppDataProvider = ({ children }) => {
         cantidad: it.cantidad,
         valorUnitario: it.valorUnitario
       }))
-    };
+    });
 
-    setVentas((prev) => [newSale, ...prev]);
     updateCotizacionStatus(quoteId, 'Facturada');
-    logAudit('Facturación DIAN', `Conversión de cotización ${quoteId} en Factura Electrónica ${nextInvoiceNumber}`);
-    showToast('Cotización Facturada', `Factura electrónica DIAN ${nextInvoiceNumber} emitida.`);
     return newSale;
   };
 
@@ -553,6 +892,27 @@ export const AppDataProvider = ({ children }) => {
     };
 
     setVentas((prev) => [newVenta, ...prev]);
+
+    supabaseRest.upsert('ventas_facturas', {
+      id: newVenta.id,
+      numero_factura: newVenta.numeroFactura,
+      cufe: newVenta.cufe,
+      fecha: newVenta.fecha,
+      cliente: newVenta.cliente,
+      documento_cliente: newVenta.documentoCliente,
+      direccion_cliente: newVenta.direccionCliente,
+      telefono_cliente: newVenta.telefonoCliente,
+      email_cliente: newVenta.emailCliente,
+      vendedor: newVenta.vendedor,
+      metodo_pago: newVenta.metodoPago,
+      estado_dian: newVenta.estadoDian,
+      items_count: newVenta.itemsCount,
+      subtotal: newVenta.subtotal,
+      iva: newVenta.iva,
+      total: newVenta.total,
+      estado_pedido: newVenta.estadoPedido,
+      items_detalle: newVenta.itemsDetalle || []
+    });
 
     if (ventaData.itemsDetalle && ventaData.itemsDetalle.length > 0) {
       ventaData.itemsDetalle.forEach((it) => {
@@ -593,6 +953,21 @@ export const AppDataProvider = ({ children }) => {
     };
     setPedidos((prev) => [newPedido, ...prev]);
 
+    supabaseRest.upsert('pedidos', {
+      id: newPedido.id,
+      fecha: newPedido.fecha,
+      cliente: newPedido.cliente,
+      documento: newPedido.documento,
+      telefono: newPedido.telefono,
+      direccion_entrega: newPedido.direccionEntrega,
+      responsable: newPedido.responsable,
+      estado: newPedido.estado,
+      factura_asociada: newPedido.facturaAsociada,
+      items: newPedido.items,
+      total: newPedido.total,
+      historial: newPedido.historial
+    });
+
     logAudit('Ventas & Facturación DIAN', `Emisión de factura ${nextInvoiceNumber} a ${newVenta.cliente} por ${formatCurrency(newVenta.total)}`);
     showToast('Venta y Factura Registrada', `Comprobante ${nextInvoiceNumber} emitido exitosamente.`);
     return newVenta;
@@ -602,6 +977,7 @@ export const AppDataProvider = ({ children }) => {
     setVentas((prev) =>
       prev.map((v) => (v.id === ventaId ? { ...v, estadoDian: 'Aprobada' } : v))
     );
+    supabaseRest.update('ventas_facturas', ventaId, { estado_dian: 'Aprobada' });
     showToast('Sincronización DIAN', 'Comprobante aprobado por la DIAN.');
   };
 
@@ -625,6 +1001,22 @@ export const AppDataProvider = ({ children }) => {
       ]
     };
     setPedidos((prev) => [newPedido, ...prev]);
+
+    supabaseRest.upsert('pedidos', {
+      id: newPedido.id,
+      fecha: newPedido.fecha,
+      cliente: newPedido.cliente,
+      documento: newPedido.documento,
+      telefono: newPedido.telefono,
+      direccion_entrega: newPedido.direccionEntrega,
+      responsable: newPedido.responsable,
+      estado: newPedido.estado,
+      factura_asociada: newPedido.facturaAsociada,
+      items: newPedido.items,
+      total: newPedido.total,
+      historial: newPedido.historial
+    });
+
     logAudit('Gestión de Pedidos', `Nuevo pedido ${newPedido.id} registrado para ${newPedido.cliente}`);
     showToast('Pedido Registrado', `Pedido ${newPedido.id} creado en estado ${newPedido.estado}.`);
     return newPedido;
@@ -640,10 +1032,15 @@ export const AppDataProvider = ({ children }) => {
             estado: nuevoEstado,
             nota: nota || `Cambio de estado a ${nuevoEstado}`
           };
+          const newHist = [...(p.historial || []), entry];
+          supabaseRest.update('pedidos', pedidoId, {
+            estado: nuevoEstado,
+            historial: newHist
+          });
           return {
             ...p,
             estado: nuevoEstado,
-            historial: [...(p.historial || []), entry]
+            historial: newHist
           };
         }
         return p;
@@ -677,6 +1074,22 @@ export const AppDataProvider = ({ children }) => {
 
     setDevoluciones((prev) => [newDev, ...prev]);
 
+    supabaseRest.upsert('devoluciones', {
+      id: newDev.id,
+      fecha: newDev.fecha,
+      factura_origen: newDev.facturaOrigen,
+      cliente: newDev.cliente,
+      repuesto_id: newDev.repuestoId,
+      codigo: newDev.codigo,
+      descripcion: newDev.descripcion,
+      cantidad: newDev.cantidad,
+      tipo_accion: newDev.tipoAccion,
+      motivo: newDev.motivo,
+      usuario_responsable: newDev.usuarioResponsable,
+      valor_reintegrado: newDev.valorReintegrado,
+      estado: newDev.estado
+    });
+
     if (part && newDev.tipoAccion === 'Reingreso a Inventario') {
       adjustStockWithReason(
         part.id,
@@ -706,6 +1119,18 @@ export const AppDataProvider = ({ children }) => {
       estado: 'Respondida'
     };
     setConsultasAsesoria((prev) => [newConsulta, ...prev]);
+
+    supabaseRest.upsert('consultas_asesoria', {
+      id: newConsulta.id,
+      fecha: newConsulta.fecha,
+      cliente: newConsulta.cliente,
+      equipo: newConsulta.equipo,
+      consulta: newConsulta.consulta,
+      respuesta_tecnica: newConsulta.respuestaTecnica,
+      atendido_por: newConsulta.atendidoPor,
+      estado: newConsulta.estado
+    });
+
     logAudit('Módulo de Asesorías', `Nueva asesoría ${newConsulta.id} para ${newConsulta.cliente}`);
     showToast('Asesoría Guardada', `Recomendación registrada para ${newConsulta.cliente}.`);
     return newConsulta;
@@ -725,6 +1150,8 @@ export const AppDataProvider = ({ children }) => {
         kardexMovements,
         auditLogs,
         servicePackages: SERVICE_PACKAGES,
+        isSupabaseConfigured,
+        isCloudSynced,
         globalSearch,
         setGlobalSearch,
         isCommandPaletteOpen,
