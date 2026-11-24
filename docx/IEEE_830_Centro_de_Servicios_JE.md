@@ -2,7 +2,7 @@
 **Proyecto:** Sistema de Información Centro de Servicios J&E  
 **Entidad Formativa:** SENA — Tecnología en Análisis y Desarrollo de Software (ADSO)  
 **Ficha:** 3386122  
-**Revisión Actual:** 1.2 (Sincronizada con el código fuente e integración Supabase PostgreSQL)  
+**Revisión Actual:** 1.3 (Sincronizada con el código fuente e integración Supabase PostgreSQL)  
 **Fecha de última actualización:** 23 de Noviembre de 2026  
 
 ---
@@ -142,6 +142,7 @@ El sistema de información para el **Centro de Servicios J&E** es una aplicació
 | **RF-008** | **Generación de reportes** | Administrador | Media (Deseado) | Genera reportes sobre ventas, inventario, pedidos, reparaciones, devoluciones y auditoría, con vista en pantalla y exportación en **PDF** y **Excel (`.csv`)**. | `src/pages/Reportes.jsx` |
 | **RF-009** | **Registro de devoluciones** | Administrador | Media (Deseado) | Registra devoluciones asociadas a una factura, actualizando automáticamente el inventario y dejando evidencia del motivo, fecha y usuario responsable. | `src/pages/VentasPedidos.jsx`<br>Tabla: `public.devoluciones` |
 | **RF-010** | **Módulo de asesorías** | Cliente | Baja (Opcional) | Ofrece guías de mantenimiento preventivo, calculadora interactiva de mezcla 2T (1:50 y 1:40) y registro de consultas técnicas personalizadas. | `src/pages/Asesorias.jsx`<br>Tabla: `public.consultas_asesoria` |
+| **RF-011** | **Notificación WhatsApp** | Técnico / Administrador | Media (Deseado) | Envía notificación vía WhatsApp al cliente cuando la orden de taller está lista para recoger, usando Twilio API. | `src/lib/whatsapp.js` |
 
 ---
 
