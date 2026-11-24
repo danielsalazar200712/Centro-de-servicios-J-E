@@ -13,7 +13,7 @@
 | :--- | :--- | :--- | :--- |
 | 01/07/2026 | 1.0 | **Equipo de Desarrollo ADSO - Ficha 3386122**<br>- Camilo Espinosa<br>- Yarlei Stiven Posada<br>- Daniel Salazar<br>- Álvaro Ríos<br>- Juan Fernando Castañeda | Versión inicial del SRS conforme al estándar IEEE 830. Pendiente de validación. |
 | 23/11/2026 | 1.1 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Alineación integral del Frontend React + Vite + Tailwind CSS con los requisitos RF-001 a RF-010, RNF-001 a RNF-007, interfaz SaaS Premium (Outfit / Plus Jakarta Sans / JetBrains Mono), inicio en limpio sin datos de muestra, calculadora de mezcla 2T y factura electrónica DIAN imprimible con descarga XML UBL 2.1. |
-| 23/11/2026 | 1.2 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Integración de capa Backend-as-a-Service (BaaS) y Base de Datos Relacional PostgreSQL en **Supabase** (`supabase/schema.sql`, `src/lib/supabaseClient.js` y sincronización bidireccional en `src/context/AppDataContext.jsx`). |
+| 23/11/2026 | 1.2 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Integración de capa Backend-as-a-Service (BaaS) y Base de Datos Relacional PostgreSQL en **Supabase** (`supabase/schema.sql`, `src/lib/supabaseClient.js`, sincronización en `src/context/AppDataContext.jsx`) y configuración de despliegue continuo en **Vercel** (`vercel.json`). |
 
 ### Firmas de Validación
 - **Por el cliente (Centro de Servicios J&E):** Fdo. D./Dña: ___________________________
