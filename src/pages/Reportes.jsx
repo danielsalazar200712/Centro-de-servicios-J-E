@@ -125,13 +125,13 @@ export default function Reportes() {
 
     setTimeout(() => {
       setIsExporting(false);
-      logAudit('Reportes (RF-008)', `Exportación a Excel (.csv) del reporte de ${tipoReporte.toUpperCase()}`);
+      logAudit('Reportes', `Exportación a Excel (.csv) del reporte de ${tipoReporte.toUpperCase()}`);
       showToast('Reporte Excel Descargado', `Archivo CSV generado con los registros reales.`);
     }, 300);
   };
 
   const handleExportPDF = () => {
-    logAudit('Reportes (RF-008)', `Impresión PDF del reporte de ${tipoReporte.toUpperCase()}`);
+    logAudit('Reportes', `Impresión PDF del reporte de ${tipoReporte.toUpperCase()}`);
     window.print();
   };
 

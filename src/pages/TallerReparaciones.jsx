@@ -379,7 +379,7 @@ export default function TallerReparaciones() {
               <div className="bg-agri-soft border border-emerald-200 p-4 rounded-2xl flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-display font-bold text-agri">
-                    Historial de Reparaciones por Cliente (RF-007)
+                    Historial de Reparaciones por Cliente
                   </h3>
                   <p className="text-xs text-emerald-900">
                     Expediente técnico de diagnósticos, actividades ejecutadas, repuestos instalados y observaciones.

@@ -260,7 +260,7 @@ export default function Asesorias() {
             <h3 className="text-sm font-display font-bold text-slate-900">
               Historial de Asesorías Registradas ({consultasAsesoria.length})
             </h3>
-            <Badge status="Activo">RF-010</Badge>
+            <Badge status="Activo">En Línea</Badge>
           </div>
 
           {consultasAsesoria.length === 0 ? (

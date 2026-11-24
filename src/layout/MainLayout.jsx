@@ -24,12 +24,12 @@ export default function MainLayout() {
           <Outlet />
         </main>
 
-        <footer className="no-print py-3 px-6 border-t border-surface-border bg-white text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <footer className="no-print py-3 px-6 border-t border-surface-border bg-white/90 text-center text-xs text-slate-600 flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>
-            <strong>Centro de Servicios J&E</strong> • Taller STIHL, Husqvarna & Royal Cóndor
+            <strong>Centro de Servicios J&E</strong> • Taller Especializado STIHL, Husqvarna & Royal Cóndor
           </span>
-          <span className="text-[11px] text-slate-400">
-            SENA Regional • Ficha 3386122 ADSO • Estándar IEEE 830 (Rev 1.0)
+          <span className="text-[11px] text-slate-500 font-medium">
+            Gestión de Taller, Repuestos y Facturación Electrónica
           </span>
         </footer>
       </div>

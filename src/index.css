@@ -20,17 +20,23 @@
     letter-spacing: -0.022em;
   }
 
-  /* Campos de formulario con estética limpia y foco esmeralda */
+  /* Campos de formulario con bordes bien marcados y respuesta táctil */
   input:not([type="checkbox"]):not([type="radio"]),
   select,
   textarea {
-    @apply transition-all duration-150 border-surface-border text-surface-dark placeholder:text-slate-400;
+    @apply transition-all duration-150 border-[1.5px] border-slate-300 bg-slate-50/70 text-surface-dark placeholder:text-slate-400 shadow-sm;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]):hover,
+  select:hover,
+  textarea:hover {
+    @apply border-slate-400 bg-white;
   }
 
   input:not([type="checkbox"]):not([type="radio"]):focus,
   select:focus,
   textarea:focus {
-    @apply outline-none border-agri-accent ring-2 ring-emerald-500/20 bg-white;
+    @apply outline-none border-agri ring-4 ring-emerald-500/15 bg-white;
   }
 
   /* WCAG Accessible Focus Rings */
@@ -47,16 +53,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #eff3f0;
+  background: #e2e8e4;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c3d0c8;
+  background: #9fb2a7;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #96a89d;
+  background: #6c8376;
 }
 
 /* Estilos de Impresión Limpia Fiscal DIAN / Cotizaciones / Reportes (PDF / Hoja A4) */

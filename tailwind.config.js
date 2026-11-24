@@ -9,19 +9,25 @@ export default {
       colors: {
         agri: {
           deep: '#061A12',     // Obsidiana botánica ultra profunda
-          dark: '#0B2B1E',     // Verde Bosque Imperial principal
-          DEFAULT: '#0E3525',  // Botón y marca principal
-          hover: '#144933',    // Hover esmeralda profundo
-          accent: '#1E6B4B',   // Acento esmeralda refinado
+          dark: '#0A291D',     // Verde Bosque Imperial principal
+          DEFAULT: '#0F4C36',  // Esmeralda profundo de alto impacto
+          hover: '#16694B',    // Hover esmeralda vibrante
+          accent: '#10B981',   // Esmeralda luminoso para detalles y foco
           soft: '#ECFDF5',     // Tinte esmeralda suave para paneles activos
-          border: '#A7F3D0',   // Borde esmeralda luminoso tipo catálogo premium
+          border: '#A7F3D0',   // Borde esmeralda luminoso
+        },
+        forge: {
+          DEFAULT: '#EA580C',  // Naranja maquinaria / Husqvarna premium
+          hover: '#C2410C',
+          light: '#FFF7ED',
+          border: '#FDBA74',
         },
         surface: {
-          bg: '#F5F7F5',       // Blanco alabastro cálido / piedra orgánica
-          card: '#FFFFFF',     // Superficie de tarjetas blanco puro
-          border: '#DCE4DF',   // Borde arquitectónico calibrado con matiz salvia
-          muted: '#5C6B64',    // Texto secundario gris salvia oscuro
-          dark: '#0D1B15',     // Texto primario carbón botánico de máximo contraste
+          bg: '#EAEFED',       // Gris piedra salvia suave (reduce exceso de blanco)
+          card: '#FFFFFF',     // Superficie de tarjetas
+          border: '#C7D3CC',   // Borde bien definido y nítido
+          muted: '#52635B',    // Texto secundario de buen contraste
+          dark: '#0B1913',     // Texto primario carbón botánico
         }
       },
       fontFamily: {
@@ -30,8 +36,8 @@ export default {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       boxShadow: {
-        premium: '0 2px 14px -3px rgba(11, 43, 30, 0.06), 0 1px 4px -2px rgba(11, 43, 30, 0.04)',
-        'premium-lg': '0 12px 32px -8px rgba(11, 43, 30, 0.12), 0 4px 12px -4px rgba(11, 43, 30, 0.06)',
+        premium: '0 2px 14px -3px rgba(6, 26, 18, 0.08), 0 1px 4px -2px rgba(6, 26, 18, 0.05)',
+        'premium-lg': '0 14px 34px -8px rgba(6, 26, 18, 0.16), 0 4px 12px -4px rgba(6, 26, 18, 0.08)',
       }
     },
   },

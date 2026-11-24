@@ -35,25 +35,25 @@ export default function Sidebar({ isOpenMobile, onCloseMobile }) {
   const visibleNavItems = navItems.filter((item) => hasPermission(item.id));
 
   const content = (
-    <div className="flex flex-col h-full bg-white border-r border-surface-border">
+    <div className="flex flex-col h-full bg-agri-deep text-slate-100 border-r border-emerald-950/80 shadow-xl">
       {/* Brand Header */}
-      <div className="p-5 border-b border-surface-border flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-agri flex items-center justify-center text-white font-display font-extrabold text-sm shadow-sm flex-shrink-0">
+      <div className="p-5 border-b border-white/10 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-forge to-amber-600 flex items-center justify-center text-white font-display font-extrabold text-sm shadow-md shadow-orange-950/40 flex-shrink-0 ring-1 ring-white/20">
           J&E
         </div>
         <div className="min-w-0">
-          <h1 className="font-display font-bold text-sm tracking-tight text-surface-dark leading-tight truncate">
+          <h1 className="font-display font-bold text-sm tracking-tight text-white leading-tight truncate">
             Centro de Servicios J&E
           </h1>
-          <p className="text-[11px] text-surface-muted truncate mt-0.5 font-medium">
-            Gestión & Facturación DIAN
+          <p className="text-[11px] text-emerald-300/90 truncate mt-0.5 font-medium">
+            Maquinaria & Repuestos
           </p>
         </div>
       </div>
 
       {/* Navigation Links */}
       <nav className="flex-1 p-3.5 space-y-1.5 overflow-y-auto" aria-label="Menú principal">
-        <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-surface-muted">
+        <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-400/70">
           Navegación Principal
         </div>
         {visibleNavItems.map((item) => {
@@ -64,20 +64,33 @@ export default function Sidebar({ isOpenMobile, onCloseMobile }) {
               to={item.path}
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer ${
+                `group relative flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer ${
                   isActive
-                    ? 'bg-agri text-white shadow-sm'
-                    : 'text-slate-600 hover:text-agri hover:bg-surface-bg'
+                    ? 'bg-gradient-to-r from-agri to-agri-hover text-white shadow-md ring-1 ring-emerald-400/30'
+                    : 'text-slate-300 hover:text-white hover:bg-white/10 hover:translate-x-1'
                 }`
               }
             >
               {({ isActive }) => (
                 <>
+                  {isActive && (
+                    <span className="absolute left-0 top-2 bottom-2 w-1 rounded-r-full bg-forge" />
+                  )}
                   <div className="flex items-center gap-3 min-w-0">
-                    <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-emerald-300' : 'text-slate-400'}`} />
+                    <Icon
+                      className={`w-4 h-4 flex-shrink-0 transition-colors ${
+                        isActive ? 'text-forge-border' : 'text-emerald-300/70 group-hover:text-forge-border'
+                      }`}
+                    />
                     <span className="truncate">{item.name}</span>
                   </div>
-                  {isActive && <ChevronRight className="w-3.5 h-3.5 text-emerald-300 flex-shrink-0" />}
+                  <ChevronRight
+                    className={`w-3.5 h-3.5 flex-shrink-0 transition-all ${
+                      isActive
+                        ? 'text-emerald-200 opacity-100'
+                        : 'text-emerald-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0'
+                    }`}
+                  />
                 </>
               )}
             </NavLink>
@@ -86,31 +99,31 @@ export default function Sidebar({ isOpenMobile, onCloseMobile }) {
       </nav>
 
       {/* Bottom status badge: DIAN + Supabase Cloud Status */}
-      <div className="p-3.5 border-t border-surface-border bg-surface-bg">
+      <div className="p-3.5 border-t border-white/10 bg-black/20">
         <button
           type="button"
           onClick={() => setShowDianModal(true)}
-          className="w-full text-left p-3 rounded-xl bg-white border border-surface-border hover:border-emerald-300 transition-all cursor-pointer group shadow-2xs"
+          className="w-full text-left p-3 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/50 hover:bg-white/10 transition-all cursor-pointer group"
           aria-label="Ver estado de conexión con la DIAN y Base de Datos"
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
-              <span className="text-xs font-display font-bold text-slate-800">
-                {isSupabaseConfigured ? 'Supabase Cloud + DIAN' : 'DIAN En Línea'}
+              <span className="text-xs font-display font-bold text-white">
+                {isSupabaseConfigured ? 'Nube + Facturación' : 'Sistema En Línea'}
               </span>
             </div>
-            <Info className="w-3.5 h-3.5 text-slate-400 group-hover:text-agri" />
+            <Info className="w-3.5 h-3.5 text-emerald-300/70 group-hover:text-white transition-colors" />
           </div>
-          <p className="text-[10px] text-surface-muted mt-1 pl-4 font-mono">
+          <p className="text-[10px] text-emerald-200/80 mt-1 pl-4 font-mono">
             {isSupabaseConfigured
               ? isCloudSynced
-                ? 'PostgreSQL Sincronizado'
-                : 'Conectando a Supabase...'
-              : 'Modo Local (Supabase Ready)'}
+                ? 'Base de Datos Sincronizada'
+                : 'Conectando...'
+              : 'Modo Local Activo'}
           </p>
         </button>
       </div>

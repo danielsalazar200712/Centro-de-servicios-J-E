@@ -4,20 +4,22 @@ export default function StatCard({ title, value, subtitle, icon: Icon, trend, tr
   return (
     <div
       onClick={onClick}
-      className={`bg-surface-card rounded-2xl p-5 border border-surface-border shadow-premium hover:border-emerald-400/70 transition-all duration-200 ${
-        onClick ? 'cursor-pointer group' : ''
+      className={`bg-surface-card rounded-2xl p-5 border border-surface-border shadow-premium transition-all duration-200 ${
+        onClick
+          ? 'cursor-pointer group hover:-translate-y-0.5 hover:border-agri hover:shadow-premium-lg'
+          : 'hover:border-slate-300'
       }`}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-wider text-surface-muted">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-surface-muted group-hover:text-agri transition-colors">
             {title}
           </p>
           <h4 className="text-2xl font-display font-bold text-surface-dark tracking-tight mt-1.5 font-mono">
             {value}
           </h4>
         </div>
-        <div className="p-2.5 rounded-xl bg-agri-soft text-agri border border-emerald-200/80 group-hover:bg-agri group-hover:text-white transition-colors">
+        <div className="p-2.5 rounded-xl bg-agri-soft text-agri border border-emerald-200/80 group-hover:bg-forge group-hover:text-white group-hover:border-forge transition-all duration-200">
           {Icon && <Icon className="w-5 h-5" aria-hidden="true" />}
         </div>
       </div>

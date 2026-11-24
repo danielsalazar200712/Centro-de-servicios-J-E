@@ -2,7 +2,7 @@
 **Proyecto:** Sistema de Información Centro de Servicios J&E  
 **Entidad Formativa:** SENA — Tecnología en Análisis y Desarrollo de Software (ADSO)  
 **Ficha:** 3386122  
-**Revisión Actual:** 1.3 (Sincronizada con el código fuente e integración Supabase PostgreSQL)  
+**Revisión Actual:** 1.4 (Sincronizada con el código fuente e integración Supabase PostgreSQL)  
 **Fecha de última actualización:** 23 de Noviembre de 2026  
 
 ---
@@ -15,6 +15,7 @@
 | 23/11/2026 | 1.1 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Alineación integral del Frontend React + Vite + Tailwind CSS con los requisitos RF-001 a RF-010, RNF-001 a RNF-007, interfaz SaaS Premium (Outfit / Plus Jakarta Sans / JetBrains Mono), inicio en limpio sin datos de muestra, calculadora de mezcla 2T y factura electrónica DIAN imprimible con descarga XML UBL 2.1. |
 | 23/11/2026 | 1.2 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Integración de capa Backend-as-a-Service (BaaS) y Base de Datos Relacional PostgreSQL en **Supabase** (`supabase/schema.sql`, `src/lib/supabaseClient.js`, sincronización en `src/context/AppDataContext.jsx`) y configuración de despliegue continuo en **Vercel** (`vercel.json`). |
 | 23/11/2026 | 1.3 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Nuevo requisito **RF-011 Notificación por WhatsApp** (método gratuito `wa.me`) en el módulo de Taller, con botón "Avisar por WhatsApp" para órdenes listas para entrega. |
+| 23/11/2026 | 1.4 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Rediseño visual profesional: paleta verde bosque profundo + acento naranja industrial (`forge`), barra lateral oscura, estados `hover` interactivos, bordes de formularios marcados, pantalla de ingreso con fotografía real de taller Husqvarna (`public/images/taller-husqvarna.jpg`) y limpieza de textos técnicos/académicos en la interfaz de usuario. |
 
 ### Firmas de Validación
 - **Por el cliente (Centro de Servicios J&E):** Fdo. D./Dña: ___________________________

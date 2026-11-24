@@ -9,7 +9,7 @@ export const MACHINERY_IMAGES = {
   motoazada: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80',
   podadora: 'https://images.unsplash.com/photo-1598880940371-c756e015fea1?auto=format&fit=crop&w=600&q=80',
   cuatrimoto: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=600&q=80',
-  tallerLogin: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80'
+  tallerLogin: '/images/taller-husqvarna.jpg'
 };
 
 // Catálogos y registros operativos inicializados en limpio (0 registros de muestra)

@@ -65,23 +65,23 @@ export default function Dashboard() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => navigate('/inventario')}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-surface-border bg-white text-slate-700 font-semibold text-xs hover:bg-slate-50 transition-all cursor-pointer"
+            className="group flex items-center gap-1.5 px-3.5 py-2 rounded-xl border-[1.5px] border-surface-border bg-surface-bg/70 text-slate-700 font-semibold text-xs hover:bg-white hover:border-agri hover:text-agri hover:-translate-y-0.5 hover:shadow-sm transition-all cursor-pointer"
           >
-            <Package className="w-3.5 h-3.5 text-agri" />
+            <Package className="w-3.5 h-3.5 text-agri group-hover:scale-110 transition-transform" />
             <span>Catálogo Repuestos</span>
           </button>
           <button
             onClick={() => navigate('/taller')}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-surface-border bg-white text-slate-700 font-semibold text-xs hover:bg-slate-50 transition-all cursor-pointer"
+            className="group flex items-center gap-1.5 px-3.5 py-2 rounded-xl border-[1.5px] border-surface-border bg-surface-bg/70 text-slate-700 font-semibold text-xs hover:bg-white hover:border-agri hover:text-agri hover:-translate-y-0.5 hover:shadow-sm transition-all cursor-pointer"
           >
-            <Wrench className="w-3.5 h-3.5 text-agri" />
+            <Wrench className="w-3.5 h-3.5 text-agri group-hover:scale-110 transition-transform" />
             <span>Orden de Taller</span>
           </button>
           <button
             onClick={() => navigate('/ventas')}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-agri text-white font-bold text-xs hover:bg-agri-hover transition-all cursor-pointer shadow-sm"
+            className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-forge to-amber-600 text-white font-bold text-xs hover:from-forge-hover hover:to-amber-700 hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer shadow-sm"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform" />
             <span>Registrar Venta</span>
           </button>
         </div>
