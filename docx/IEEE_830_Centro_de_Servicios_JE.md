@@ -14,6 +14,7 @@
 | 01/07/2026 | 1.0 | **Equipo de Desarrollo ADSO - Ficha 3386122**<br>- Camilo Espinosa<br>- Yarlei Stiven Posada<br>- Daniel Salazar<br>- Álvaro Ríos<br>- Juan Fernando Castañeda | Versión inicial del SRS conforme al estándar IEEE 830. Pendiente de validación. |
 | 23/11/2026 | 1.1 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Alineación integral del Frontend React + Vite + Tailwind CSS con los requisitos RF-001 a RF-010, RNF-001 a RNF-007, interfaz SaaS Premium (Outfit / Plus Jakarta Sans / JetBrains Mono), inicio en limpio sin datos de muestra, calculadora de mezcla 2T y factura electrónica DIAN imprimible con descarga XML UBL 2.1. |
 | 23/11/2026 | 1.2 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Integración de capa Backend-as-a-Service (BaaS) y Base de Datos Relacional PostgreSQL en **Supabase** (`supabase/schema.sql`, `src/lib/supabaseClient.js`, sincronización en `src/context/AppDataContext.jsx`) y configuración de despliegue continuo en **Vercel** (`vercel.json`). |
+| 23/11/2026 | 1.3 | **Equipo de Desarrollo ADSO - Ficha 3386122** | Nuevo requisito **RF-011 Notificación por WhatsApp** (método gratuito `wa.me`) en el módulo de Taller, con botón "Avisar por WhatsApp" para órdenes listas para entrega. |
 
 ### Firmas de Validación
 - **Por el cliente (Centro de Servicios J&E):** Fdo. D./Dña: ___________________________
@@ -142,7 +143,7 @@ El sistema de información para el **Centro de Servicios J&E** es una aplicació
 | **RF-008** | **Generación de reportes** | Administrador | Media (Deseado) | Genera reportes sobre ventas, inventario, pedidos, reparaciones, devoluciones y auditoría, con vista en pantalla y exportación en **PDF** y **Excel (`.csv`)**. | `src/pages/Reportes.jsx` |
 | **RF-009** | **Registro de devoluciones** | Administrador | Media (Deseado) | Registra devoluciones asociadas a una factura, actualizando automáticamente el inventario y dejando evidencia del motivo, fecha y usuario responsable. | `src/pages/VentasPedidos.jsx`<br>Tabla: `public.devoluciones` |
 | **RF-010** | **Módulo de asesorías** | Cliente | Baja (Opcional) | Ofrece guías de mantenimiento preventivo, calculadora interactiva de mezcla 2T (1:50 y 1:40) y registro de consultas técnicas personalizadas. | `src/pages/Asesorias.jsx`<br>Tabla: `public.consultas_asesoria` |
-| **RF-011** | **Notificación WhatsApp** | Técnico / Administrador | Media (Deseado) | Envía notificación vía WhatsApp al cliente cuando la orden de taller está lista para recoger, usando Twilio API. | `src/lib/whatsapp.js` |
+| **RF-011** | **Notificación por WhatsApp** | Técnico / Administrador | Media (Deseado) | Cuando una orden de taller pasa a **Listo para Entrega**, el sistema muestra el botón **"Avisar por WhatsApp"**, que abre WhatsApp (enlace gratuito `wa.me`) con un mensaje prellenado para el cliente (nombre, equipo y número de orden). El número se normaliza al indicativo de Colombia (+57). Si la orden no tiene celular válido, se informa al usuario. | `src/lib/whatsapp.js`<br>`src/pages/TallerReparaciones.jsx`<br>Tabla: `public.ordenes_taller` (campo `telefono`) |
 
 ---
 

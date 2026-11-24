@@ -7,9 +7,11 @@ import {
   PackagePlus,
   Printer,
   UserCheck,
-  ClipboardCheck
+  ClipboardCheck,
+  MessageCircle
 } from 'lucide-react';
 import { useAppData } from '../context/AppDataContext';
+import { enlaceOrdenLista } from '../lib/whatsapp';
 import Badge from '../components/common/Badge';
 import Modal from '../components/common/Modal';
 
@@ -297,6 +299,24 @@ export default function TallerReparaciones() {
                                     Marcar Listo ✓
                                   </button>
                                 )}
+                                {col.id === 'Listo para Entrega' && (
+                                  enlaceOrdenLista(orden) ? (
+                                    <a
+                                      href={enlaceOrdenLista(orden)}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      title="Abrir WhatsApp con el mensaje listo para enviar"
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#25D366] text-white font-semibold rounded-lg text-[11px] hover:brightness-95 cursor-pointer"
+                                    >
+                                      <MessageCircle className="w-3.5 h-3.5" />
+                                      Avisar
+                                    </a>
+                                  ) : (
+                                    <span className="text-[10px] text-slate-400" title="Agrega un celular válido a la orden">
+                                      Sin teléfono
+                                    </span>
+                                  )
+                                )}
                               </div>
                             </div>
                           </div>
@@ -550,6 +570,30 @@ export default function TallerReparaciones() {
                 </button>
               ))}
             </div>
+
+            {selectedOrder.estado === 'Listo para Entrega' && (
+              <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl border border-[#25D366]/40 bg-[#25D366]/10">
+                <div>
+                  <p className="font-bold text-slate-900">Notificar al cliente por WhatsApp</p>
+                  <p className="text-slate-600">
+                    {enlaceOrdenLista(selectedOrder)
+                      ? 'Se abrirá WhatsApp con el mensaje escrito. Solo presiona "Enviar".'
+                      : 'La orden no tiene un número de celular válido.'}
+                  </p>
+                </div>
+                {enlaceOrdenLista(selectedOrder) && (
+                  <a
+                    href={enlaceOrdenLista(selectedOrder)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#25D366] text-white font-bold rounded-xl hover:brightness-95 cursor-pointer"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Avisar por WhatsApp
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         )}
       </Modal>

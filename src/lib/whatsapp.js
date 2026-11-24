@@ -1,43 +1,54 @@
-// WhatsApp Notification Scaffold
-// Placeholder implementation using Twilio WhatsApp API.
-// Replace with real credentials and endpoint when ready.
+// Notificaciones por WhatsApp (método gratuito "Click to Chat" - wa.me)
+// No requiere cuentas, claves ni pagos: abre WhatsApp (Web o App) con el
+// mensaje ya escrito y el usuario solo presiona "Enviar". (RF-011)
 
 /**
- * Sends a WhatsApp message notifying that an order is ready for pickup.
- * @param {string} orderId - Identifier of the order.
- * @param {string} phoneNumber - Customer phone number in international format (e.g., +573001234567).
- * @returns {Promise<object>} Result of the API call.
+ * Normaliza un teléfono colombiano al formato internacional sin "+".
+ * Ej: "313 642 2685" -> "573136422685"
+ * @param {string} telefono
+ * @returns {string|null} número normalizado o null si no es válido
  */
-export async function sendOrderReady(orderId, phoneNumber) {
-  const accountSid = process.env.VITE_WA_ACCOUNT_SID;
-  const authToken = process.env.VITE_WA_AUTH_TOKEN;
-  const from = process.env.VITE_WA_FROM; // e.g., 'whatsapp:+14155238886'
-
-  if (!accountSid || !authToken || !from) {
-    throw new Error('WhatsApp credentials are not set in environment variables');
-  }
-
-  const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
-  const body = new URLSearchParams({
-    From: from,
-    To: `whatsapp:${phoneNumber}`,
-    Body: `✅ Su orden ${orderId} está lista para recoger. Gracias por su compra!`,
-  });
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: 'Basic ' + Buffer.from(`${accountSid}:${authToken}`).toString('base64'),
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: body.toString(),
-  });
-
-  if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`WhatsApp API error ${response.status}: ${errText}`);
-  }
-  return await response.json();
+export function normalizarTelefono(telefono) {
+  if (!telefono) return null;
+  let digits = String(telefono).replace(/\D/g, '');
+  if (digits.startsWith('00')) digits = digits.slice(2);
+  if (digits.length === 10 && digits.startsWith('3')) digits = `57${digits}`; // celular Colombia
+  if (digits.length < 10 || digits.length > 15) return null;
+  return digits;
 }
 
-export default { sendOrderReady };
+/**
+ * Construye el enlace wa.me con el mensaje codificado.
+ * @param {string} telefono
+ * @param {string} mensaje
+ * @returns {string|null}
+ */
+export function crearEnlaceWhatsApp(telefono, mensaje) {
+  const numero = normalizarTelefono(telefono);
+  if (!numero) return null;
+  return `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+}
+
+/**
+ * Mensaje estándar cuando una orden de taller queda "Listo para Entrega".
+ * @param {object} orden
+ * @returns {string}
+ */
+export function mensajeOrdenLista(orden) {
+  const nombre = (orden?.propietario || 'cliente').split(' ')[0];
+  const equipo = [orden?.tipoEquipo, orden?.marca, orden?.modelo].filter(Boolean).join(' ');
+  return (
+    `Hola ${nombre}, le saludamos del *Centro de Servicios J&E*.\n\n` +
+    `Su equipo *${equipo || 'en reparación'}* (orden ${orden?.id}) ya está *listo para recoger*. ✅\n\n` +
+    `Puede pasar por él en nuestro horario de atención. ¡Gracias por confiar en nosotros!`
+  );
+}
+
+/**
+ * Enlace listo para notificar que la orden está lista para entrega.
+ * @param {object} orden
+ * @returns {string|null}
+ */
+export function enlaceOrdenLista(orden) {
+  return crearEnlaceWhatsApp(orden?.telefono, mensajeOrdenLista(orden));
+}
