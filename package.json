@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node node_modules/vite/bin/vite.js",
-    "build": "node node_modules/vite/bin/vite.js build",
-    "preview": "node node_modules/vite/bin/vite.js preview"
+    "build": "node docx/generar_docx.mjs && node node_modules/vite/bin/vite.js build",
+    "preview": "node node_modules/vite/bin/vite.js preview",
+    "docs:sync": "node docx/generar_docx.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",
